@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Savings Stretch Calculator — How Long Will Money Last Abroad | RelocationCalc</title>
+<meta name="description" content="Calculate how many years your retirement savings will last in a lower-cost country. See the power of geographic arbitrage on your nest egg.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/retirement-stretch.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>Retirement Stretch</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">🏖️ Retirement Planning</div>
+<h1>Retirement Savings Stretch Calculator</h1>
+<p>See how much longer your retirement savings last when you move to a lower-cost country. Geographic arbitrage is one of the most powerful retirement tools available.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🏖️ How Long Will My Money Last?</div>
+<div class="form-grid">
+<div class="field"><label>Total Retirement Savings ($)</label><input type="number" id="savings" value="500000" min="0"></div>
+<div class="field"><label>Monthly Passive Income (pension, SS, dividends) ($)</label><input type="number" id="passive" value="1200" min="0"></div>
+<div class="field"><label>Monthly Expenses in Current City ($)</label><input type="number" id="currentExpense" value="4500" min="0"></div>
+<div class="field"><label>Destination Cost Index (100 = same)</label><select id="destPreset" onchange="applyDestPreset()">
+<option value="">— Select destination —</option>
+<option value="45">🇵🇹 Portugal (≈45%)</option>
+<option value="35">🇲🇽 Mexico (≈35%)</option>
+<option value="30">🇹🇭 Thailand (≈30%)</option>
+<option value="28">🇻🇳 Vietnam (≈28%)</option>
+<option value="38">🇨🇴 Colombia (≈38%)</option>
+<option value="40">🇪🇸 Spain (≈40%)</option>
+<option value="55">🇩🇪 Germany (≈55%)</option>
+</select></div>
+<div class="field"><label>Or enter custom % (100 = same cost)</label><input type="number" id="costPct" value="45" min="1" max="200"></div>
+<div class="field"><label>Annual Investment Return on Savings (%)</label><input type="number" id="investReturn" value="5" step="0.5" min="0"></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcStretch()">Calculate Runway</button><button class="btn btn--secondary" onclick="resetStretch()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Retirement Runway</div>
+<div class="result-box__main" id="stretchMain">—</div>
+<div class="result-box__sub" id="stretchSub"></div>
+<div class="results-grid" id="stretchGrid" style="margin-top:16px;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Geographic Arbitrage for Retirement</h2>
+<p>If your current $4,500/month lifestyle costs only $1,800/month in Portugal, your savings last 2.5x longer. Combined with Social Security or pension income, this can mean the difference between running out of money and retiring comfortably for life.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/cost-of-living.html" class="related-link"><span>🏙️</span>Cost of Living</a>
+<a href="/tools/d7-visa-checker.html" class="related-link"><span>🇵🇹</span>D7 Visa Checker</a>
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>Currency Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function applyDestPreset() { const v=document.getElementById('destPreset').value; if(v) document.getElementById('costPct').value=v; }
+function calcStretch() {
+  const savings = +document.getElementById('savings').value;
+  const passive = +document.getElementById('passive').value;
+  const currentExp = +document.getElementById('currentExpense').value;
+  const pct = +document.getElementById('costPct').value/100;
+  const investRet = +document.getElementById('investReturn').value/100/12;
+  const destExp = currentExp * pct;
+  const currentDraw = Math.max(0, currentExp - passive);
+  const destDraw = Math.max(0, destExp - passive);
+  function yearsToDeplete(draw, ret) {
+    if (draw <= 0) return 999;
+    if (draw >= savings) return 0;
+    let bal = savings, months = 0;
+    while (bal > 0 && months < 1200) { bal = bal * (1+ret) - draw; months++; }
+    return months/12;
+  }
+  const currentYears = yearsToDeplete(currentDraw, investRet);
+  const destYears = yearsToDeplete(destDraw, investRet);
+  const label = destYears >= 100 ? '100+ years' : destYears.toFixed(1) + ' years';
+  document.getElementById('stretchMain').textContent = label + ' in destination';
+  document.getElementById('stretchSub').textContent = `vs ${currentYears>=100?'100+':currentYears.toFixed(1)} years in current city · Monthly draw: ${fmtCurrency(destDraw)}/mo vs ${fmtCurrency(currentDraw)}/mo`;
+  document.getElementById('stretchGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(destExp)}</span><span class="result-item__label">Dest. Monthly Cost</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(currentExp-destExp)}</span><span class="result-item__label">Monthly Savings</span></div>
+    <div class="result-item"><span class="result-item__val">${destYears>=100?'100+':destYears.toFixed(1)}y</span><span class="result-item__label">Runway Abroad</span></div>
+    <div class="result-item"><span class="result-item__val">${currentYears>=100?'100+':currentYears.toFixed(1)}y</span><span class="result-item__label">Runway at Home</span></div>`;
+  showResult('result');
+}
+function resetStretch() { hideResult('result'); }
+</script>
+</body></html>

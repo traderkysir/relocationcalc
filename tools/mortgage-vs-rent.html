@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage vs Rent Calculator — Buy or Rent Abroad | RelocationCalc</title>
+<meta name="description" content="Calculate whether buying or renting makes financial sense in your destination country. Compare total 5, 10, and 20-year costs.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/mortgage-vs-rent.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>Mortgage vs Rent</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">💰 Finance Tool</div>
+<h1>Mortgage vs. Rent Abroad</h1>
+<p>Should you buy or rent in your new country? Compare total costs over 5, 10, and 20 years.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🏠 Buy vs. Rent Comparison</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+<div>
+<div style="font-weight:700;font-size:.875rem;margin-bottom:12px;">🏦 Buying Scenario</div>
+<div class="field"><label>Home Price ($)</label><input type="number" id="price" value="250000" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Down Payment (%)</label><input type="number" id="downPct" value="20" min="0" max="100"></div>
+<div class="field" style="margin-top:10px;"><label>Mortgage Rate (%)</label><input type="number" id="rate" value="4.5" step="0.1" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Loan Term (years)</label><select id="term"><option value="15">15 years</option><option value="20">20 years</option><option value="25" selected>25 years</option><option value="30">30 years</option></select></div>
+<div class="field" style="margin-top:10px;"><label>Annual Property Tax (%)</label><input type="number" id="propTax" value="0.5" step="0.1" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Annual Maintenance (%)</label><input type="number" id="maintain" value="1" step="0.1" min="0"></div>
+</div>
+<div>
+<div style="font-weight:700;font-size:.875rem;margin-bottom:12px;">🏠 Renting Scenario</div>
+<div class="field"><label>Monthly Rent ($)</label><input type="number" id="rent" value="1200" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Annual Rent Increase (%)</label><input type="number" id="rentIncrease" value="3" step="0.5" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Investment Return on Down Payment (%)</label><input type="number" id="investReturn" value="6" step="0.5" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Annual Home Appreciation (%)</label><input type="number" id="appreciation" value="3" step="0.5" min="0"></div>
+</div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcMortgage()">Compare Scenarios</button><button class="btn btn--secondary" onclick="resetMortgage()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Recommendation</div>
+<div class="result-box__main" id="recoMain">—</div>
+<div class="result-box__sub" id="recoSub"></div>
+<table class="comparison-table" id="compareTable" style="margin-top:16px;"></table>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Buying vs Renting Abroad: Key Considerations</h2>
+<p>The rent-vs-buy calculus changes dramatically outside your home country. Factors that make buying more attractive abroad: lower property prices, strong appreciation in growth markets, and stable long-term residency plans. Factors that favor renting: residency uncertainty, foreign buyer restrictions, and limited access to favorable mortgage rates as a non-citizen.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/cost-of-living.html" class="related-link"><span>🏙️</span>Cost of Living</a>
+<a href="/tools/relocation-budget.html" class="related-link"><span>📋</span>Relocation Budget</a>
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>Currency Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function calcMortgage() {
+  const price = +document.getElementById('price').value;
+  const downPct = +document.getElementById('downPct').value/100;
+  const rate = +document.getElementById('rate').value/100/12;
+  const term = +document.getElementById('term').value*12;
+  const propTax = +document.getElementById('propTax').value/100;
+  const maintain = +document.getElementById('maintain').value/100;
+  const rent = +document.getElementById('rent').value;
+  const rentInc = +document.getElementById('rentIncrease').value/100;
+  const investRet = +document.getElementById('investReturn').value/100;
+  const appreciation = +document.getElementById('appreciation').value/100;
+  const downPayment = price * downPct;
+  const loan = price - downPayment;
+  const monthlyMortgage = loan * (rate * Math.pow(1+rate,term)) / (Math.pow(1+rate,term)-1);
+  const monthlyTax = price * propTax / 12;
+  const monthlyMaintain = price * maintain / 12;
+  const totalMonthlyBuy = monthlyMortgage + monthlyTax + monthlyMaintain;
+  const years = [5,10,20];
+  let rows = '<tr><th>Timeframe</th><th>Total Buying Cost</th><th>Total Renting Cost</th><th>Home Value</th></tr>';
+  years.forEach(y => {
+    const buyCost = totalMonthlyBuy * y * 12 + downPayment;
+    const homeVal = price * Math.pow(1+appreciation, y);
+    const netBuyCost = buyCost - (homeVal - price);
+    let rentCost = 0, r = rent;
+    for(let i=0;i<y;i++){rentCost+=r*12;r*=(1+rentInc);}
+    const opportunityCost = downPayment * (Math.pow(1+investRet/12,y*12)-1);
+    const totalRentCost = rentCost + opportunityCost;
+    const winner = netBuyCost < totalRentCost ? '🏆 Buy' : '🏆 Rent';
+    rows += `<tr><td>${y} years</td><td>${fmtCurrency(netBuyCost)} (net)</td><td>${fmtCurrency(totalRentCost)}</td><td style="color:var(--green);">${fmtCurrency(homeVal)}</td></tr>`;
+  });
+  document.getElementById('compareTable').innerHTML = rows;
+  document.getElementById('recoMain').textContent = fmtCurrency(monthlyMortgage) + '/mo mortgage';
+  document.getElementById('recoSub').textContent = `Down payment: ${fmtCurrency(downPayment)} · Total monthly cost as owner: ${fmtCurrency(totalMonthlyBuy)}/mo`;
+  showResult('result');
+}
+function resetMortgage() { hideResult('result'); }
+</script>
+</body></html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distance Converter — Miles, Kilometers, Nautical Miles | RelocationCalc</title>
+<meta name="description" content="Convert between miles, kilometers, nautical miles, and more. Free distance unit converter for travelers and expats.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/distance-converter.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#converters">Converters</a><span class="bc-sep">›</span><span>Distance</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">🗺️ Unit Converter</div>
+<h1>Distance Converter</h1>
+<p>Convert between miles, kilometers, nautical miles, and other distance units. Essential for international driving and navigation.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🗺️ Distance Unit Converter</div>
+<div class="form-grid">
+<div class="field"><label>Miles (mi)</label><input type="number" id="mi" placeholder="0" oninput="convertDist('mi')"></div>
+<div class="field"><label>Kilometers (km)</label><input type="number" id="km" placeholder="0" oninput="convertDist('km')"></div>
+<div class="field"><label>Meters (m)</label><input type="number" id="m" placeholder="0" oninput="convertDist('m')"></div>
+<div class="field"><label>Feet (ft)</label><input type="number" id="ft" placeholder="0" oninput="convertDist('ft')"></div>
+<div class="field"><label>Nautical Miles (nmi)</label><input type="number" id="nmi" placeholder="0" oninput="convertDist('nmi')"></div>
+<div class="field"><label>Furlongs (fur)</label><input type="number" id="fur" placeholder="0" oninput="convertDist('fur')"></div>
+</div>
+<div class="divider"></div>
+<div style="font-weight:700;font-size:.875rem;margin-bottom:12px;">🛣️ Common Travel Distances</div>
+<table class="comparison-table">
+<tr><th>Route</th><th>km</th><th>miles</th></tr>
+<tr><td>Lisbon → Porto</td><td>314</td><td>195</td></tr>
+<tr><td>NYC → LA</td><td>4,500</td><td>2,800</td></tr>
+<tr><td>London → Paris</td><td>344</td><td>214</td></tr>
+<tr><td>Sydney → Melbourne</td><td>878</td><td>546</td></tr>
+</table>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content"><h2>Miles vs Kilometers</h2><p>1 mile = 1.60934 km. A quick mental shortcut: multiply miles by 1.6 for kilometers (or divide km by 1.6 for miles). Speed limits in Europe are in km/h — 100 km/h ≈ 62 mph.</p></div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/length-converter.html" class="related-link"><span>📏</span>Length Converter</a>
+<a href="/tools/temperature-converter.html" class="related-link"><span>🌡️</span>Temperature Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const TO_M = {mi:1609.344,km:1000,m:1,ft:0.3048,nmi:1852,fur:201.168};
+function convertDist(from) {
+  const val = +document.getElementById(from).value;
+  const meters = val * TO_M[from];
+  Object.keys(TO_M).forEach(u => {
+    if (u !== from) document.getElementById(u).value = (meters/TO_M[u]).toFixed(6).replace(/\.?0+$/,'');
+  });
+}
+</script>
+</body></html>

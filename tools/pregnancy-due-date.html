@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pregnancy Due Date Calculator | RelocationCalc</title>
+<meta name="description" content="Calculate your estimated due date and current pregnancy week from your last menstrual period or conception date. Free pregnancy calculator.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/pregnancy-due-date.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#health">Health</a><span class="bc-sep">›</span><span>Pregnancy Due Date</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">❤️ Health Tool</div>
+<h1>Pregnancy Due Date Calculator</h1>
+<p>Find your estimated due date and current week of pregnancy. Calculated using Naegele's Rule — the same method used by healthcare providers worldwide.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🤱 Calculate Your Due Date</div>
+<div class="form-grid">
+<div class="field"><label>Calculation Method</label><select id="method" onchange="toggleMethod()">
+<option value="lmp">Last Menstrual Period (LMP)</option>
+<option value="conception">Known Conception Date</option>
+<option value="ivf3">IVF — 3-Day Transfer</option>
+<option value="ivf5">IVF — 5-Day Transfer</option>
+</select></div>
+<div class="field"><label id="dateLabel">Date of Last Menstrual Period</label><input type="date" id="inputDate"></div>
+<div class="field"><label>Cycle Length (days) <small>LMP method only</small></label><select id="cycleLen">
+<option value="25">25 days</option><option value="26">26 days</option><option value="27">27 days</option>
+<option value="28" selected>28 days (average)</option><option value="29">29 days</option>
+<option value="30">30 days</option><option value="31">31 days</option><option value="32">32 days</option>
+</select></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcDueDate()">Calculate Due Date</button><button class="btn btn--secondary" onclick="resetDue()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Estimated Due Date</div>
+<div class="result-box__main" id="dueMain">—</div>
+<div class="result-box__sub" id="dueSub"></div>
+<div class="results-grid" id="dueGrid" style="margin-top:16px;"></div>
+<div id="trimesters" style="margin-top:14px;font-size:.8125rem;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>How Due Dates Are Calculated</h2>
+<p>Naegele's Rule: Add 280 days (40 weeks) to the first day of your last menstrual period. Only about 5% of babies are born on their exact due date — most arrive within 2 weeks either side. Your healthcare provider will use ultrasound measurements to confirm or adjust your estimated due date.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/age-calculator.html" class="related-link"><span>🎂</span>Age Calculator</a>
+<a href="/tools/date-duration.html" class="related-link"><span>📆</span>Date Duration</a>
+<a href="/tools/health-insurance.html" class="related-link"><span>🏥</span>Health Insurance</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('inputDate').valueAsDate = new Date(Date.now() - 30*24*60*60*1000);
+function toggleMethod() {
+  const m = document.getElementById('method').value;
+  const labels = {lmp:'Last Menstrual Period',conception:'Conception Date',ivf3:'3-Day Transfer Date',ivf5:'5-Day Transfer Date'};
+  document.getElementById('dateLabel').textContent = labels[m];
+}
+function calcDueDate() {
+  const method = document.getElementById('method').value;
+  const inputDate = new Date(document.getElementById('inputDate').value);
+  if (isNaN(inputDate)) return;
+  const cycle = +document.getElementById('cycleLen').value;
+  let dueDate;
+  if (method === 'lmp') dueDate = new Date(inputDate.getTime() + (280 + cycle - 28) * 86400000);
+  else if (method === 'conception') dueDate = new Date(inputDate.getTime() + 266 * 86400000);
+  else if (method === 'ivf3') dueDate = new Date(inputDate.getTime() + 263 * 86400000);
+  else dueDate = new Date(inputDate.getTime() + 261 * 86400000);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const daysPregnant = Math.floor((today - (method==='lmp'?inputDate:new Date(dueDate.getTime()-280*86400000))) / 86400000);
+  const weeksPregnant = Math.floor(daysPregnant / 7);
+  const daysExtra = daysPregnant % 7;
+  const daysRemaining = Math.max(0, Math.floor((dueDate - today) / 86400000));
+  const tri = weeksPregnant < 13 ? '1st Trimester' : weeksPregnant < 27 ? '2nd Trimester' : '3rd Trimester';
+  document.getElementById('dueMain').textContent = dueDate.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('dueSub').textContent = `${daysRemaining} days remaining · Currently ${weeksPregnant}w ${daysExtra}d pregnant`;
+  document.getElementById('dueGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${weeksPregnant}w ${daysExtra}d</span><span class="result-item__label">Current Week</span></div>
+    <div class="result-item"><span class="result-item__val">${daysRemaining}</span><span class="result-item__label">Days to Go</span></div>
+    <div class="result-item"><span class="result-item__val">${tri}</span><span class="result-item__label">Trimester</span></div>
+    <div class="result-item"><span class="result-item__val">${Math.round(daysPregnant/280*100)}%</span><span class="result-item__label">Complete</span></div>`;
+  showResult('result');
+}
+function resetDue() { hideResult('result'); }
+</script>
+</body></html>

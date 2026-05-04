@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Length Converter — cm, inches, feet, meters, miles | RelocationCalc</title>
+<meta name="description" content="Convert between centimeters, inches, feet, meters, miles, and kilometers instantly. Free length and distance unit converter.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/length-converter.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#converters">Converters</a><span class="bc-sep">›</span><span>Length</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">📏 Unit Converter</div>
+<h1>Length Converter</h1>
+<p>Convert between metric and imperial length units. Enter any value and see all conversions instantly.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">📏 Length / Distance Converter</div>
+<div style="margin-bottom:12px;"><label style="font-size:.8125rem;font-weight:600;">Enter value in any field:</label></div>
+<div class="form-grid">
+<div class="field"><label>Millimeters (mm)</label><input type="number" id="mm" placeholder="0" oninput="convertLength('mm')"></div>
+<div class="field"><label>Centimeters (cm)</label><input type="number" id="cm" placeholder="0" oninput="convertLength('cm')"></div>
+<div class="field"><label>Meters (m)</label><input type="number" id="m" placeholder="0" oninput="convertLength('m')"></div>
+<div class="field"><label>Kilometers (km)</label><input type="number" id="km" placeholder="0" oninput="convertLength('km')"></div>
+<div class="field"><label>Inches (in)</label><input type="number" id="in" placeholder="0" oninput="convertLength('in')"></div>
+<div class="field"><label>Feet (ft)</label><input type="number" id="ft" placeholder="0" oninput="convertLength('ft')"></div>
+<div class="field"><label>Yards (yd)</label><input type="number" id="yd" placeholder="0" oninput="convertLength('yd')"></div>
+<div class="field"><label>Miles (mi)</label><input type="number" id="mi" placeholder="0" oninput="convertLength('mi')"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content"><h2>Metric vs Imperial Length</h2><p>The US, Myanmar, and Liberia are the only countries that primarily use imperial units. Moving to Europe means switching to metric — distances in kilometers, heights in centimeters, and room sizes in square meters.</p></div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/weight-converter.html" class="related-link"><span>⚖️</span>Weight Converter</a>
+<a href="/tools/distance-converter.html" class="related-link"><span>🗺️</span>Distance Converter</a>
+<a href="/tools/temperature-converter.html" class="related-link"><span>🌡️</span>Temperature Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const TO_MM = {mm:1,cm:10,m:1000,km:1e6,in:25.4,ft:304.8,yd:914.4,mi:1609344};
+function convertLength(from) {
+  const val = +document.getElementById(from).value;
+  const mm = val * TO_MM[from];
+  Object.keys(TO_MM).forEach(u => {
+    if (u !== from) document.getElementById(u).value = (mm/TO_MM[u]).toFixed(6).replace(/\.?0+$/,'');
+  });
+}
+</script>
+</body></html>

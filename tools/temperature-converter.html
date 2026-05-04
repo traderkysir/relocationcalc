@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter — Celsius, Fahrenheit & Kelvin | RelocationCalc</title>
+<meta name="description" content="Convert between Celsius, Fahrenheit, and Kelvin instantly. Free temperature converter with formula explanations.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/temperature-converter.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#converters">Converters</a><span class="bc-sep">›</span><span>Temperature</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">🌡️ Unit Converter</div>
+<h1>Temperature Converter</h1>
+<p>Instantly convert between Celsius, Fahrenheit, and Kelvin. Essential for understanding weather and cooking temperatures abroad.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🌡️ Convert Temperature</div>
+<div class="form-grid">
+<div class="field"><label>Celsius (°C)</label><input type="number" id="celsius" placeholder="Enter Celsius..." oninput="convertFromC()"></div>
+<div class="field"><label>Fahrenheit (°F)</label><input type="number" id="fahrenheit" placeholder="Enter Fahrenheit..." oninput="convertFromF()"></div>
+<div class="field field--full"><label>Kelvin (K)</label><input type="number" id="kelvin" placeholder="Enter Kelvin..." oninput="convertFromK()"></div>
+</div>
+<div class="divider"></div>
+<div style="font-weight:700;font-size:.875rem;margin-bottom:12px;color:var(--text);">📌 Reference Temperatures</div>
+<table class="comparison-table" id="refTable"></table>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Temperature Conversion Formulas</h2>
+<p><strong>°F to °C:</strong> (°F − 32) × 5/9 &nbsp;|&nbsp; <strong>°C to °F:</strong> (°C × 9/5) + 32 &nbsp;|&nbsp; <strong>°C to K:</strong> °C + 273.15</p>
+<p>A quick trick: to roughly convert Celsius to Fahrenheit, double the Celsius figure and add 30 (e.g., 20°C ≈ 70°F). For exact values, use the calculator above.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/length-converter.html" class="related-link"><span>📏</span>Length Converter</a>
+<a href="/tools/weight-converter.html" class="related-link"><span>⚖️</span>Weight Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const refs = [['Water freezes','0','32','273.15'],['Room temp (comfortable)','22','71.6','295.15'],['Body temp (normal)','37','98.6','310.15'],['Oven (moderate)','180','356','453.15'],['Water boils','100','212','373.15']];
+let rows='<tr><th>Reference</th><th>°C</th><th>°F</th><th>K</th></tr>';
+refs.forEach(([n,c,f,k])=>{ rows+=`<tr><td>${n}</td><td>${c}</td><td>${f}</td><td>${k}</td></tr>`; });
+document.getElementById('refTable').innerHTML=rows;
+function convertFromC() {
+  const c = +document.getElementById('celsius').value;
+  document.getElementById('fahrenheit').value = (c*9/5+32).toFixed(4);
+  document.getElementById('kelvin').value = (c+273.15).toFixed(4);
+}
+function convertFromF() {
+  const f = +document.getElementById('fahrenheit').value;
+  document.getElementById('celsius').value = ((f-32)*5/9).toFixed(4);
+  document.getElementById('kelvin').value = ((f-32)*5/9+273.15).toFixed(4);
+}
+function convertFromK() {
+  const k = +document.getElementById('kelvin').value;
+  document.getElementById('celsius').value = (k-273.15).toFixed(4);
+  document.getElementById('fahrenheit').value = ((k-273.15)*9/5+32).toFixed(4);
+}
+</script>
+</body></html>

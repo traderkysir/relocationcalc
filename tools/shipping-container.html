@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>International Shipping Container Cost Calculator | RelocationCalc</title>
+<meta name="description" content="Estimate international shipping container costs for your relocation. Compare 20ft and 40ft container prices by route.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/shipping-container.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#health">Practical</a><span class="bc-sep">›</span><span>Shipping Container Cost</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">📦 Freight Estimator</div>
+<h1>Shipping Container Cost Calculator</h1>
+<p>Estimate the cost of shipping your belongings internationally. Covers FCL (full container) and LCL (shared container) options.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">📦 Estimate Shipping Costs</div>
+<div class="info-tip"><span>ℹ️</span><div>These are rough estimates. Container rates fluctuate significantly. Always get at least 3 quotes from licensed freight forwarders. Rates shown are ocean freight only — add $500–$2,000 for origin/destination charges.</div></div>
+<div class="form-grid" style="margin-top:16px;">
+<div class="field"><label>Origin Region</label><select id="origin">
+<option value="us_east">🇺🇸 US East Coast</option><option value="us_west">🇺🇸 US West Coast</option>
+<option value="uk">🇬🇧 United Kingdom</option><option value="eu">🇪🇺 Europe</option><option value="au">🇦🇺 Australia</option>
+</select></div>
+<div class="field"><label>Destination Region</label><select id="dest">
+<option value="eu">🇪🇺 Europe</option><option value="uk">🇬🇧 United Kingdom</option>
+<option value="us">🇺🇸 United States</option><option value="sea">🌏 Southeast Asia</option>
+<option value="au">🇦🇺 Australia/NZ</option><option value="latam">🌎 Latin America</option>
+</select></div>
+<div class="field"><label>Container Type</label><select id="container">
+<option value="lcl">LCL (shared, by CBM)</option>
+<option value="20ft">20ft FCL (full container)</option>
+<option value="40ft">40ft FCL (full container)</option>
+</select></div>
+<div class="field" id="cbmField"><label>Volume (cubic meters)</label><input type="number" id="cbm" value="10" min="1" max="27"></div>
+<div class="field"><label>Extra Services</label><select id="extras">
+<option value="0">Ocean freight only</option>
+<option value="1200">+ Packing service</option>
+<option value="2500">+ Full door-to-door</option>
+</select></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcShipping()">Estimate Cost</button><button class="btn btn--secondary" onclick="resetShipping()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Estimated Shipping Cost</div>
+<div class="result-box__main" id="shipMain">—</div>
+<div class="result-box__sub" id="shipSub"></div>
+<div class="results-grid" id="shipGrid" style="margin-top:16px;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>FCL vs LCL: Which Is Right for Your Move?</h2>
+<p>A 20ft container holds roughly 25–28 CBM — about the contents of a 2-bedroom apartment. A 40ft container holds 55–58 CBM. If you have less than 15 CBM, LCL (shared container) is usually more economical. For a full household move, FCL gives you better security and often better value.</p>
+<ul>
+<li><strong>LCL</strong>: Good for small volumes. Your goods share a container with others.</li>
+<li><strong>20ft FCL</strong>: Best for 1–2 bedroom households moving internationally.</li>
+<li><strong>40ft FCL</strong>: Best for 3+ bedroom households or office moves.</li>
+</ul>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/relocation-budget.html" class="related-link"><span>📋</span>Relocation Budget</a>
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>Currency Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const RATES = {
+  us_east:{eu:[1800,3200,5500],uk:[1700,3000,5200],sea:[1200,2400,4200],au:[2200,3800,6500],latam:[900,1800,3200]},
+  us_west:{eu:[2200,3800,6500],uk:[2100,3600,6200],sea:[900,1800,3200],au:[1600,2800,4800],latam:[1000,2000,3500]},
+  uk:{eu:[500,1200,2000],us:[1700,3200,5500],sea:[1800,3000,5200],au:[2500,4200,7000],latam:[1600,2800,4800]},
+  eu:{uk:[500,1100,1900],us:[1800,3200,5500],sea:[1800,3000,5200],au:[2500,4200,7000],latam:[1600,2800,4800]},
+  au:{eu:[2500,4200,7000],uk:[2500,4000,6800],us:[1600,2800,4800],sea:[800,1500,2800],latam:[2800,4800,8000]},
+};
+const CONTAINER_IDX = {lcl:0,'20ft':1,'40ft':2};
+document.getElementById('container').addEventListener('change',function(){
+  document.getElementById('cbmField').style.display = this.value==='lcl'?'flex':'none';
+});
+function calcShipping() {
+  const origin = document.getElementById('origin').value;
+  const dest = document.getElementById('dest').value;
+  const container = document.getElementById('container').value;
+  const extras = +document.getElementById('extras').value;
+  if (!RATES[origin] || !RATES[origin][dest]) {
+    document.getElementById('shipMain').textContent = 'Route not in database';
+    showResult('result'); return;
+  }
+  const baseRates = RATES[origin][dest];
+  let base;
+  if (container === 'lcl') {
+    const cbm = +document.getElementById('cbm').value;
+    base = cbm * (baseRates[0] / 10);
+  } else {
+    base = baseRates[CONTAINER_IDX[container]];
+  }
+  const total = base + extras;
+  const low = base * 0.8, high = base * 1.4;
+  document.getElementById('shipMain').textContent = fmtCurrency(total);
+  document.getElementById('shipSub').textContent = `Ocean freight range: ${fmtCurrency(low)}–${fmtCurrency(high)} · Plus destination charges ($500–$2,000 extra)`;
+  document.getElementById('shipGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(base)}</span><span class="result-item__label">Freight Est.</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(extras)}</span><span class="result-item__label">Extra Services</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(total)}</span><span class="result-item__label">Total Est.</span></div>
+    <div class="result-item"><span class="result-item__val">25–45 days</span><span class="result-item__label">Transit Time</span></div>`;
+  showResult('result');
+}
+function resetShipping() { hideResult('result'); }
+</script>
+</body></html>

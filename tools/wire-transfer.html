@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wire Transfer Fee Comparator | RelocationCalc</title>
+<meta name="description" content="Compare international wire transfer fees across Wise, Western Union, PayPal, and bank wires. See total cost and recipient amount for your transfer.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/wire-transfer.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>Wire Transfer Fees</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">💰 Finance Tool</div>
+<h1>Wire Transfer Fee Comparator</h1>
+<p>Compare the real cost of sending money internationally. See fees, exchange rate spread, and how much actually arrives.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🏦 Compare Transfer Services</div>
+<div class="info-tip"><span>ℹ️</span><div>Fee structures are approximate and change regularly. Always verify on the provider's website before transferring. <strong>The spread</strong> (difference from mid-market rate) is often larger than the stated fee.</div></div>
+<div class="form-grid" style="margin-top:20px;">
+<div class="field"><label>Transfer Amount (USD)</label><input type="number" id="amount" value="5000" min="1"></div>
+<div class="field"><label>Destination</label><select id="destination">
+<option value="eu">🇪🇺 Europe (EUR)</option>
+<option value="uk">🇬🇧 United Kingdom (GBP)</option>
+<option value="ca">🇨🇦 Canada (CAD)</option>
+<option value="au">🇦🇺 Australia (AUD)</option>
+<option value="mx">🇲🇽 Mexico (MXN)</option>
+<option value="in">🇮🇳 India (INR)</option>
+<option value="other">Other</option>
+</select></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="compareWire()">Compare Now</button><button class="btn btn--secondary" onclick="resetWire()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Transfer Comparison</div>
+<div class="result-box__main" id="wireMain">—</div>
+<div class="result-box__sub" id="wireSub"></div>
+<table class="comparison-table" id="wireTable" style="margin-top:16px;"></table>
+<div class="info-tip" style="margin-top:16px;"><span>💡</span><div><strong>Bottom line:</strong> Wise typically saves 2–4% vs bank wires on large transfers. On a $50,000 relocation transfer, that's $1,000–$2,000 saved.</div></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>How to Minimize Wire Transfer Costs</h2>
+<p>For large relocation transfers ($10,000+), use a specialist like Wise, OFX, or Currencies Direct. Banks typically add 2–4% above the mid-market rate, which is invisible but very real. Always compare the total cost including fees AND the exchange rate spread.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>Currency Converter</a>
+<a href="/tools/relocation-budget.html" class="related-link"><span>📋</span>Relocation Budget</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const PROVIDERS = [
+  {name:'🏆 Wise',fee:0.006,spread:0.003,time:'1-2 days',note:'Best for most transfers'},
+  {name:'Western Union',fee:0.02,spread:0.015,time:'Minutes-3 days',note:'Fast, higher cost'},
+  {name:'PayPal',fee:0.035,spread:0.03,time:'Instant-1 day',note:'Convenient, expensive'},
+  {name:'Typical Bank Wire',fee:0.04,spread:0.035,time:'3-5 days',note:'Highest total cost'},
+  {name:'OFX',fee:0.004,spread:0.004,time:'1-3 days',note:'Good for large amounts'},
+  {name:'Revolut',fee:0.005,spread:0.004,time:'Instant-2 days',note:'Good for regular transfers'},
+];
+function compareWire() {
+  const amount = +document.getElementById('amount').value;
+  let rows = '<tr><th>Service</th><th>Fee</th><th>Spread Cost</th><th>Total Cost</th><th>Recipient Gets</th><th>Speed</th></tr>';
+  let best = null, bestCost = Infinity;
+  PROVIDERS.forEach(p => {
+    const fee = amount * p.fee;
+    const spread = amount * p.spread;
+    const total = fee + spread;
+    const receives = amount - total;
+    if (total < bestCost) { bestCost = total; best = p.name; }
+    rows += `<tr><td><strong>${p.name}</strong></td><td>${fmtCurrency(fee)}</td><td>${fmtCurrency(spread)}</td><td>${fmtCurrency(total)}</td><td class="val-highlight">${fmtCurrency(receives)}</td><td>${p.time}</td></tr>`;
+  });
+  document.getElementById('wireTable').innerHTML = rows;
+  const savings = PROVIDERS[3].fee*amount+PROVIDERS[3].spread*amount - (PROVIDERS[0].fee*amount+PROVIDERS[0].spread*amount);
+  document.getElementById('wireMain').textContent = 'Best: Wise';
+  document.getElementById('wireSub').textContent = `Sending ${fmtCurrency(amount)} · Wise saves approx. ${fmtCurrency(savings)} vs bank wire`;
+  showResult('result');
+}
+function resetWire() { hideResult('result'); }
+</script>
+</body></html>

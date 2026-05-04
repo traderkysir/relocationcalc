@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portugal D7 Visa Income Checker | RelocationCalc</title>
+<meta name="description" content="Check if your passive income meets Portugal's D7 visa requirements. Calculate for single applicants and family units with 2025 thresholds.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/d7-visa-checker.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>D7 Visa Checker</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">🇵🇹 Portugal D7 Visa</div>
+<h1>D7 Passive Income Visa Checker</h1>
+<p>Instantly check if your income meets Portugal's D7 visa requirements for you and your family.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🇵🇹 D7 Visa Eligibility Check</div>
+<div class="info-tip"><span>ℹ️</span><div>The D7 requires monthly income equal to <strong>at least the Portuguese minimum wage</strong> for the main applicant, plus percentages for dependents. The 2024 minimum wage is <strong>€820/month</strong>. Always verify current thresholds with a qualified immigration lawyer.</div></div>
+<div class="form-grid" style="margin-top:20px;">
+<div class="field"><label>Your Monthly Income (€)</label><input type="number" id="income" value="1200" min="0"></div>
+<div class="field"><label>Income Source</label><select id="incomeType"><option value="pension">Pension / Retirement</option><option value="rental">Rental Income</option><option value="investment">Investment / Dividends</option><option value="remote">Remote Work / Freelance</option><option value="trading">Trading Income</option></select></div>
+<div class="field"><label>Adult Dependents (spouse etc.)</label><select id="adults"><option value="0">0</option><option value="1">1</option><option value="2">2</option></select></div>
+<div class="field"><label>Minor Dependents (children)</label><select id="minors"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+<div class="field"><label>Bank Savings (€)</label><input type="number" id="savings" value="10000" min="0"></div>
+<div class="field"><label>Target Region</label><select id="region"><option value="mainland">Mainland Portugal</option><option value="madeira">Madeira Island</option><option value="azores">Azores</option></select></div>
+</div>
+<div class="calc-actions">
+<button class="btn btn--primary btn--lg" onclick="checkD7()">Check Eligibility</button>
+<button class="btn btn--secondary" onclick="resetD7()">Reset</button>
+</div>
+<div class="result-box" id="result">
+<div class="result-box__title">D7 Visa Status</div>
+<div class="result-box__main" id="d7Status">—</div>
+<div class="result-box__sub" id="d7Sub"></div>
+<div class="results-grid" id="d7Grid" style="margin-top:16px;"></div>
+<div id="d7Notes" style="margin-top:16px;font-size:.875rem;color:var(--text-muted);"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+
+<div class="seo-content">
+<h2>Portugal D7 Visa Requirements (2024)</h2>
+<p>The D7 "Passive Income Visa" allows non-EU citizens to live in Portugal if they have sufficient passive income. Key requirements include:</p>
+<ul>
+<li>Minimum €820/month for the main applicant (2024 minimum wage)</li>
+<li>Additional €246/month per adult dependent (30% of minimum wage)</li>
+<li>Additional €164/month per minor dependent (20% of minimum wage)</li>
+<li>Valid travel insurance and clean criminal record</li>
+<li>Proof of accommodation in Portugal</li>
+<li>Bank savings are helpful but not strictly required</li>
+</ul>
+<p>Madeira and the Azores sometimes offer additional incentives for new residents. Consult a licensed Portuguese immigration attorney for current requirements.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/cost-of-living.html" class="related-link"><span>🏙️</span>Cost of Living (Portugal)</a>
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>USD to EUR Converter</a>
+<a href="/tools/days-in-country.html" class="related-link"><span>📅</span>Days in Country Tracker</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const MIN_WAGE = 820; // EUR 2024
+function checkD7() {
+  const income = +document.getElementById('income').value;
+  const adults = +document.getElementById('adults').value;
+  const minors = +document.getElementById('minors').value;
+  const savings = +document.getElementById('savings').value;
+  const incomeType = document.getElementById('incomeType').value;
+  const required = MIN_WAGE + (adults * MIN_WAGE * 0.3) + (minors * MIN_WAGE * 0.2);
+  const surplus = income - required;
+  const qualified = income >= required;
+  document.getElementById('d7Status').textContent = qualified ? '✅ Likely Eligible' : '❌ Below Threshold';
+  document.getElementById('d7Status').style.color = qualified ? 'var(--green)' : 'var(--red)';
+  document.getElementById('d7Sub').textContent = `Your income: €${fmt(income)}/mo · Required: €${fmt(required,2)}/mo · Difference: €${fmt(Math.abs(surplus),2)}/mo`;
+  document.getElementById('d7Grid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">€${fmt(required,0)}</span><span class="result-item__label">Required/month</span></div>
+    <div class="result-item"><span class="result-item__val" style="color:${surplus>=0?'var(--green)':'var(--red)}">€${fmt(Math.abs(surplus),0)}</span><span class="result-item__label">${surplus>=0?'Surplus':'Shortfall'}</span></div>
+    <div class="result-item"><span class="result-item__val">€${fmt(savings)}</span><span class="result-item__label">Your Savings</span></div>
+    <div class="result-item"><span class="result-item__val">${adults+minors+1}</span><span class="result-item__label">Total Applicants</span></div>`;
+  const tips = qualified ? 
+    `Your <strong>${incomeType.replace('_',' ')}</strong> income qualifies. Recommended next steps: engage a Portuguese immigration lawyer (≈€500–1,500), gather income proof documents (3–6 months statements), and book your VFS appointment.` :
+    `You're €${fmt(Math.abs(surplus),2)}/mo short. Consider: additional income sources, reducing dependent count if possible, or combining with a spouse's income on a joint application.`;
+  document.getElementById('d7Notes').innerHTML = tips;
+  showResult('result');
+}
+function resetD7() { hideResult('result'); }
+</script>
+</body></html>

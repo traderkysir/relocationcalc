@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foreign Income Tax Estimator — FEIE Calculator | RelocationCalc</title>
+<meta name="description" content="Estimate US expat tax obligations including Foreign Earned Income Exclusion (FEIE) and FBAR thresholds. Free foreign income tax estimator.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/foreign-income-tax.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>Foreign Income Tax</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">💰 US Expat Tax Tool</div>
+<h1>Foreign Income Tax Estimator</h1>
+<p>Estimate your US tax obligations as an expat using the Foreign Earned Income Exclusion (FEIE). Always consult a qualified expat tax professional for final filing.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🧾 FEIE & FBAR Estimator (2024)</div>
+<div class="info-tip"><span>⚠️</span><div><strong>Disclaimer:</strong> This is an estimate only. US expat taxes are complex. Use this for general awareness and consult a licensed CPA or tax attorney for actual filing.</div></div>
+<div class="form-grid" style="margin-top:20px;">
+<div class="field"><label>Annual Foreign Earned Income ($)</label><input type="number" id="foreignIncome" value="75000" min="0"></div>
+<div class="field"><label>Filing Status</label><select id="filing"><option value="single">Single</option><option value="mfj">Married Filing Jointly</option><option value="mfs">Married Filing Separately</option></select></div>
+<div class="field"><label>Days Outside US (this year)</label><input type="number" id="daysAbroad" value="330" min="0" max="365"></div>
+<div class="field"><label>Total Foreign Bank Account Balance ($)</label><input type="number" id="fbarBalance" value="15000" min="0"></div>
+<div class="field"><label>Foreign Tax Paid ($)</label><input type="number" id="foreignTaxPaid" value="0" min="0"></div>
+<div class="field"><label>Self-Employed?</label><select id="selfEmployed"><option value="no">No (Employee)</option><option value="yes">Yes (Self-employed)</option></select></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcTax()">Estimate Tax</button><button class="btn btn--secondary" onclick="resetTax()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Estimated US Tax Liability</div>
+<div class="result-box__main" id="taxMain">—</div>
+<div class="result-box__sub" id="taxSub"></div>
+<div class="results-grid" id="taxGrid" style="margin-top:16px;"></div>
+<div id="taxNotes" style="margin-top:14px;font-size:.8125rem;color:var(--text-muted);line-height:1.6;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Understanding the Foreign Earned Income Exclusion</h2>
+<p>US citizens living abroad can exclude up to $126,500 (2024) of foreign earned income from US taxation using Form 2555. To qualify, you must meet either the Bona Fide Residence Test or the Physical Presence Test (330 days outside the US in a 12-month period).</p>
+<ul>
+<li><strong>FEIE 2024 limit:</strong> $126,500 per person</li>
+<li><strong>FBAR threshold:</strong> $10,000 at any point during the year triggers FinCEN 114 filing</li>
+<li><strong>FATCA threshold:</strong> $200,000 single / $400,000 MFJ triggers Form 8938</li>
+</ul>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/d7-visa-checker.html" class="related-link"><span>🇵🇹</span>D7 Visa Checker</a>
+<a href="/tools/days-in-country.html" class="related-link"><span>📅</span>Days in Country Tracker</a>
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>Currency Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function calcTax() {
+  const income = +document.getElementById('foreignIncome').value;
+  const days = +document.getElementById('daysAbroad').value;
+  const fbar = +document.getElementById('fbarBalance').value;
+  const foreignTaxPaid = +document.getElementById('foreignTaxPaid').value;
+  const selfEmp = document.getElementById('selfEmployed').value === 'yes';
+  const FEIE_LIMIT = 126500;
+  const qualifiesPP = days >= 330;
+  const excluded = qualifiesPP ? Math.min(income, FEIE_LIMIT) : 0;
+  const taxableIncome = Math.max(0, income - excluded);
+  let tax = 0;
+  if (taxableIncome > 0) {
+    if (taxableIncome <= 11600) tax = taxableIncome * 0.10;
+    else if (taxableIncome <= 47150) tax = 1160 + (taxableIncome-11600)*0.12;
+    else if (taxableIncome <= 100525) tax = 5426 + (taxableIncome-47150)*0.22;
+    else if (taxableIncome <= 191950) tax = 17168 + (taxableIncome-100525)*0.24;
+    else tax = 39110 + (taxableIncome-191950)*0.32;
+  }
+  const seTax = selfEmp ? income * 0.1413 : 0;
+  const netTax = Math.max(0, tax + seTax - foreignTaxPaid);
+  const fbarRequired = fbar >= 10000;
+  document.getElementById('taxMain').textContent = fmtCurrency(netTax);
+  document.getElementById('taxSub').textContent = `Excluded via FEIE: ${fmtCurrency(excluded)} · Taxable income: ${fmtCurrency(taxableIncome)}`;
+  document.getElementById('taxGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${qualifiesPP?'✅ Yes':'❌ No'}</span><span class="result-item__label">Qualifies for FEIE</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(excluded)}</span><span class="result-item__label">FEIE Exclusion</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(seTax)}</span><span class="result-item__label">Self-Employ. Tax</span></div>
+    <div class="result-item"><span class="result-item__val" style="color:${fbarRequired?'var(--red)':'var(--green)'}">${fbarRequired?'Required':'Not Required'}</span><span class="result-item__label">FBAR Filing</span></div>`;
+  document.getElementById('taxNotes').innerHTML = `${!qualifiesPP?'<strong>⚠️ Physical Presence Test:</strong> You need 330+ days outside the US to qualify for FEIE. Consider the Bona Fide Residence Test as an alternative.<br><br>':''}${fbarRequired?'<strong>⚠️ FBAR Required:</strong> Your foreign accounts exceed $10,000. File FinCEN Form 114 by April 15 (auto-extended to Oct 15).<br><br>':''}<strong>Note:</strong> This is an estimate only. Expat tax situations are complex. Consult a CPA who specializes in expatriate taxation.`;
+  showResult('result');
+}
+function resetTax() { hideResult('result'); }
+</script>
+</body></html>

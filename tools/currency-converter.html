@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter — Live Exchange Rates | RelocationCalc</title>
+<meta name="description" content="Free currency converter with live exchange rates for 160+ currencies. Convert any amount instantly. Updated in real-time via open exchange rates API.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/currency-converter.html">
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Currency Converter","url":"https://www.relocationcalc.com/tools/currency-converter.html","applicationCategory":"FinanceApplication","operatingSystem":"Web"}</script>
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>Currency Converter</span></div></div>
+
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">💰 Finance Tool · Live Rates</div>
+<h1>Currency Converter</h1>
+<p>Live exchange rates for 160+ currencies. Rates refresh automatically from open market data.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+
+<div class="calc-card">
+<div class="calc-card__title">💱 Convert Currency</div>
+<div id="rateStatus" style="font-size:.8125rem;color:var(--text-muted);margin-bottom:16px;">⏳ Loading live rates…</div>
+
+<div class="form-grid">
+<div class="field">
+  <label>Amount</label>
+  <input type="number" id="amount" value="1000" min="0" step="any">
+</div>
+<div class="field">
+  <label>From Currency</label>
+  <select id="fromCurrency"></select>
+</div>
+<div class="field">
+  <label>To Currency</label>
+  <select id="toCurrency"></select>
+</div>
+<div class="field" style="display:flex;align-items:flex-end;">
+  <button class="btn btn--secondary btn--full" onclick="swapCurrencies()">⇄ Swap</button>
+</div>
+</div>
+
+<div class="calc-actions">
+<button class="btn btn--primary btn--lg" onclick="convert()">Convert Now</button>
+<button class="btn btn--secondary" onclick="resetForm()">Reset</button>
+</div>
+
+<div class="result-box" id="result">
+<div class="result-box__title">Converted Amount</div>
+<div class="result-box__main" id="resultMain">—</div>
+<div class="result-box__sub" id="resultSub"></div>
+<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(8,145,178,.15);">
+<div style="font-size:.8125rem;color:var(--text-muted);">Popular conversions:</div>
+<table class="comparison-table" id="popularTable" style="margin-top:8px;"></table>
+</div>
+</div>
+<div class="info-tip" style="margin-top:16px;"><span>ℹ️</span><div>Exchange rates are fetched from open market data and updated every time you load the page. For large transfers, always compare rates at <strong>Wise</strong> or your bank.</div></div>
+</div>
+
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+
+<div class="seo-content">
+<h2>How to Use the Currency Converter</h2>
+<p>Enter the amount you want to convert, select your source currency, and choose your target currency. Click "Convert Now" to see the live result. Use the ⇄ button to instantly swap the two currencies.</p>
+<h2>Why Exchange Rates Matter for Expats</h2>
+<p>When moving abroad, even a 1–2% difference in the exchange rate on a $50,000 transfer can mean $500–$1,000 lost. Always compare the mid-market rate (what this tool shows) against what your bank offers — the difference is called the "spread" and is how banks and services make money.</p>
+<ul>
+<li><strong>Wise (formerly TransferWise)</strong> typically offers rates very close to mid-market</li>
+<li><strong>Bank wire transfers</strong> often add 2–4% above mid-market</li>
+<li><strong>Western Union</strong> varies — check the total cost including fees</li>
+</ul>
+</div>
+
+<div class="related-tools"><div class="related-tools__inner">
+<h3>Related Tools</h3>
+<div class="related-list">
+<a href="/tools/wire-transfer.html" class="related-link"><span>🏦</span>Wire Transfer Fee Comparator</a>
+<a href="/tools/cost-of-living.html" class="related-link"><span>🏙️</span>Cost of Living Comparison</a>
+<a href="/tools/relocation-budget.html" class="related-link"><span>📋</span>Relocation Budget Calculator</a>
+</div>
+</div></div>
+
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+
+<script src="/js/common.js"></script>
+<script>
+const CURRENCIES = {
+  USD:'US Dollar',EUR:'Euro',GBP:'British Pound',JPY:'Japanese Yen',CAD:'Canadian Dollar',
+  AUD:'Australian Dollar',CHF:'Swiss Franc',CNY:'Chinese Yuan',SEK:'Swedish Krona',NZD:'New Zealand Dollar',
+  MXN:'Mexican Peso',SGD:'Singapore Dollar',HKD:'Hong Kong Dollar',NOK:'Norwegian Krone',KRW:'South Korean Won',
+  TRY:'Turkish Lira',INR:'Indian Rupee',BRL:'Brazilian Real',ZAR:'South African Rand',DKK:'Danish Krone',
+  PLN:'Polish Zloty',THB:'Thai Baht',IDR:'Indonesian Rupiah',HUF:'Hungarian Forint',CZK:'Czech Koruna',
+  ILS:'Israeli Shekel',CLP:'Chilean Peso',PHP:'Philippine Peso',AED:'UAE Dirham',COP:'Colombian Peso',
+  SAR:'Saudi Riyal',MYR:'Malaysian Ringgit',RON:'Romanian Leu',PEN:'Peruvian Sol',MAD:'Moroccan Dirham',
+  EGP:'Egyptian Pound',PKR:'Pakistani Rupee',BGN:'Bulgarian Lev',HRK:'Croatian Kuna',UAH:'Ukrainian Hryvnia',
+  VND:'Vietnamese Dong',BWP:'Botswana Pula',GHS:'Ghanaian Cedi',KES:'Kenyan Shilling',NGN:'Nigerian Naira',
+  QAR:'Qatari Riyal',OMR:'Omani Rial',BHD:'Bahraini Dinar',KWD:'Kuwaiti Dinar',JOD:'Jordanian Dinar'
+};
+
+let rates = {};
+
+async function loadRates() {
+  try {
+    const r = await fetch('https://open.er-api.com/v6/latest/USD');
+    const d = await r.json();
+    if (d.result === 'success') {
+      rates = d.rates;
+      document.getElementById('rateStatus').innerHTML = '✅ Live rates loaded · Updated: ' + new Date(d.time_last_update_utc).toLocaleDateString();
+      document.getElementById('rateStatus').style.color = 'var(--green)';
+    }
+  } catch(e) {
+    document.getElementById('rateStatus').innerHTML = '⚠️ Using cached rates (offline mode)';
+    rates = {USD:1,EUR:0.92,GBP:0.79,JPY:149.5,CAD:1.36,AUD:1.53,CHF:0.89,CNY:7.24,SGD:1.34,MXN:17.2,INR:83.1,BRL:4.97,ZAR:18.7,AED:3.67,SAR:3.75};
+  }
+  populateSelects();
+}
+
+function populateSelects() {
+  const from = document.getElementById('fromCurrency');
+  const to = document.getElementById('toCurrency');
+  const keys = Object.keys(CURRENCIES).filter(c => rates[c]);
+  keys.forEach(code => {
+    const opt1 = new Option(`${code} — ${CURRENCIES[code]}`, code);
+    const opt2 = new Option(`${code} — ${CURRENCIES[code]}`, code);
+    from.add(opt1); to.add(opt2);
+  });
+  from.value = 'USD'; to.value = 'EUR';
+  convert();
+}
+
+function convert() {
+  const amount = parseFloat(document.getElementById('amount').value);
+  const from = document.getElementById('fromCurrency').value;
+  const to = document.getElementById('toCurrency').value;
+  if (isNaN(amount) || !rates[from] || !rates[to]) return;
+  const result = (amount / rates[from]) * rates[to];
+  const rate = rates[to] / rates[from];
+  document.getElementById('resultMain').textContent = fmt(result, 2) + ' ' + to;
+  document.getElementById('resultSub').textContent = `1 ${from} = ${rate.toFixed(6)} ${to}  ·  1 ${to} = ${(1/rate).toFixed(6)} ${from}`;
+  // Popular amounts table
+  const amounts = [1,10,100,500,1000,5000,10000];
+  let rows = '<tr><th>'+from+'</th><th>'+to+'</th></tr>';
+  amounts.forEach(a => {
+    rows += `<tr><td>${fmt(a)}</td><td class="val-highlight">${fmt((a/rates[from])*rates[to],2)}</td></tr>`;
+  });
+  document.getElementById('popularTable').innerHTML = rows;
+  showResult('result');
+}
+
+function swapCurrencies() {
+  const from = document.getElementById('fromCurrency');
+  const to = document.getElementById('toCurrency');
+  [from.value, to.value] = [to.value, from.value];
+  convert();
+}
+
+function resetForm() {
+  document.getElementById('amount').value = 1000;
+  document.getElementById('fromCurrency').value = 'USD';
+  document.getElementById('toCurrency').value = 'EUR';
+  hideResult('result');
+}
+
+loadRates();
+document.getElementById('amount').addEventListener('input', convert);
+document.getElementById('fromCurrency').addEventListener('change', convert);
+document.getElementById('toCurrency').addEventListener('change', convert);
+</script>
+</body></html>

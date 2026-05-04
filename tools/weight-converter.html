@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weight Converter — kg, lbs, stones, ounces, grams | RelocationCalc</title>
+<meta name="description" content="Convert between kilograms, pounds, stones, ounces, and grams instantly. Free weight and mass unit converter.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/weight-converter.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#converters">Converters</a><span class="bc-sep">›</span><span>Weight</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">⚖️ Unit Converter</div>
+<h1>Weight Converter</h1>
+<p>Convert between metric and imperial weight units. Enter any value for instant results.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">⚖️ Weight / Mass Converter</div>
+<div class="form-grid">
+<div class="field"><label>Milligrams (mg)</label><input type="number" id="mg" placeholder="0" oninput="convertWeight('mg')"></div>
+<div class="field"><label>Grams (g)</label><input type="number" id="g" placeholder="0" oninput="convertWeight('g')"></div>
+<div class="field"><label>Kilograms (kg)</label><input type="number" id="kg" placeholder="0" oninput="convertWeight('kg')"></div>
+<div class="field"><label>Metric Tons (t)</label><input type="number" id="t" placeholder="0" oninput="convertWeight('t')"></div>
+<div class="field"><label>Ounces (oz)</label><input type="number" id="oz" placeholder="0" oninput="convertWeight('oz')"></div>
+<div class="field"><label>Pounds (lb)</label><input type="number" id="lb" placeholder="0" oninput="convertWeight('lb')"></div>
+<div class="field"><label>Stones (st) — UK</label><input type="number" id="st" placeholder="0" oninput="convertWeight('st')"></div>
+<div class="field"><label>Short Tons (US)</label><input type="number" id="ton" placeholder="0" oninput="convertWeight('ton')"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content"><h2>Weight Units Around the World</h2><p>The UK still commonly uses stones for body weight (1 stone = 14 pounds = 6.35 kg), while most of Europe uses kilograms. In the US, pounds are standard. Understanding these differences is important for medical forms, shipping, and grocery shopping abroad.</p></div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/bmi-calculator.html" class="related-link"><span>⚖️</span>BMI Calculator</a>
+<a href="/tools/length-converter.html" class="related-link"><span>📏</span>Length Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const TO_G = {mg:0.001,g:1,kg:1000,t:1e6,oz:28.3495,lb:453.592,st:6350.29,ton:907185};
+function convertWeight(from) {
+  const val = +document.getElementById(from).value;
+  const grams = val * TO_G[from];
+  Object.keys(TO_G).forEach(u => {
+    if (u !== from) document.getElementById(u).value = (grams/TO_G[u]).toFixed(6).replace(/\.?0+$/,'');
+  });
+}
+</script>
+</body></html>

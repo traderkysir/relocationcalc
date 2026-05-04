@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Days in Country Tracker — Tax Residency & Visa Compliance | RelocationCalc</title>
+<meta name="description" content="Track days spent in a country for tax residency, visa compliance, and the 183-day rule. Add multiple trips and get your running total.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/days-in-country.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#productivity">Productivity</a><span class="bc-sep">›</span><span>Days in Country</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">⏱ Compliance Tool</div>
+<h1>Days-in-Country Tracker</h1>
+<p>Track time spent in a country for tax residency, visa compliance, and the 183-day rule. Add multiple trips to get your annual total.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">📅 Track Your Stays</div>
+<div class="form-grid">
+<div class="field"><label>Country / Purpose</label><input type="text" id="country" placeholder="e.g. Portugal — D7 visa" value="Portugal"></div>
+<div class="field"><label>Year</label><input type="number" id="year" value="2025"></div>
+<div class="field"><label>Threshold to Watch</label><select id="threshold">
+<option value="183">183 days (tax residency)</option>
+<option value="180">180 days (many visa limits)</option>
+<option value="90">90 days (Schengen tourist)</option>
+<option value="365">365 days (full year)</option>
+<option value="330">330 days (FEIE test)</option>
+</select></div>
+</div>
+<div style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px;">
+<div style="font-weight:700;font-size:.875rem;margin-bottom:12px;">Add a Stay</div>
+<div class="form-grid">
+<div class="field"><label>Arrival Date</label><input type="date" id="arrDate"></div>
+<div class="field"><label>Departure Date</label><input type="date" id="depDate"></div>
+</div>
+<button class="btn btn--secondary" style="margin-top:12px;" onclick="addStay()">+ Add Stay</button>
+</div>
+<div id="staysList" style="margin-top:20px;"></div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcDays()">Calculate Total Days</button><button class="btn btn--secondary" onclick="resetDays()">Clear All</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Days in Country</div>
+<div class="result-box__main" id="daysMain">—</div>
+<div class="result-box__sub" id="daysSub"></div>
+<div class="results-grid" id="daysGrid" style="margin-top:16px;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>The 183-Day Tax Residency Rule</h2>
+<p>Most countries consider you a tax resident if you spend more than 183 days per year within their borders. This can trigger local income tax obligations even for foreigners. For US expats, the Physical Presence Test for FEIE eligibility requires 330 days outside the US in a 12-month period.</p>
+<p>The Schengen Zone (most of Europe) limits non-EU nationals to 90 days within any 180-day rolling window as a tourist — separate from formal residency visas.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/foreign-income-tax.html" class="related-link"><span>🧾</span>Foreign Tax Estimator</a>
+<a href="/tools/date-duration.html" class="related-link"><span>📆</span>Date Duration</a>
+<a href="/tools/d7-visa-checker.html" class="related-link"><span>🇵🇹</span>D7 Visa Checker</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+let stays = [];
+document.getElementById('arrDate').valueAsDate = new Date('2025-01-01');
+document.getElementById('depDate').valueAsDate = new Date('2025-03-01');
+function addStay() {
+  const arr = document.getElementById('arrDate').value;
+  const dep = document.getElementById('depDate').value;
+  if (!arr || !dep || arr > dep) { alert('Please enter valid arrival and departure dates.'); return; }
+  const days = Math.ceil((new Date(dep)-new Date(arr))/86400000);
+  stays.push({arr, dep, days});
+  renderStays();
+}
+function renderStays() {
+  const list = document.getElementById('staysList');
+  if (!stays.length) { list.innerHTML=''; return; }
+  let html = '<div style="font-weight:700;font-size:.8125rem;margin-bottom:8px;color:var(--text);">Added Stays:</div>';
+  stays.forEach((s,i) => {
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface);border-radius:6px;margin-bottom:6px;font-size:.875rem;">
+      <span>📅 ${s.arr} → ${s.dep}</span><span style="color:var(--primary);font-weight:600;">${s.days} days</span>
+      <button onclick="removeStay(${i})" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:18px;">×</button>
+    </div>`;
+  });
+  list.innerHTML = html;
+}
+function removeStay(i) { stays.splice(i,1); renderStays(); }
+function calcDays() {
+  if (!stays.length) { alert('Add at least one stay first.'); return; }
+  const total = stays.reduce((s,x)=>s+x.days,0);
+  const threshold = +document.getElementById('threshold').value;
+  const country = document.getElementById('country').value;
+  const pct = Math.min(100, Math.round(total/threshold*100));
+  const remaining = Math.max(0, threshold - total);
+  document.getElementById('daysMain').textContent = total + ' days';
+  document.getElementById('daysSub').textContent = `${pct}% of ${threshold}-day threshold · ${remaining} days remaining`;
+  document.getElementById('daysMain').style.color = total >= threshold ? 'var(--red)' : total >= threshold*0.8 ? 'var(--accent)' : 'var(--text)';
+  document.getElementById('daysGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${total}</span><span class="result-item__label">Days in ${country}</span></div>
+    <div class="result-item"><span class="result-item__val">${threshold}</span><span class="result-item__label">Threshold</span></div>
+    <div class="result-item"><span class="result-item__val" style="color:${remaining>0?'var(--green)':'var(--red)'}">${remaining}</span><span class="result-item__label">Days Left</span></div>
+    <div class="result-item"><span class="result-item__val">${stays.length}</span><span class="result-item__label">Trips Logged</span></div>`;
+  showResult('result');
+}
+function resetDays() { stays=[]; renderStays(); hideResult('result'); }
+</script>
+</body></html>

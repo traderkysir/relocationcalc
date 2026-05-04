@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relocation Budget Calculator — International Move Cost Estimator | RelocationCalc</title>
+<meta name="description" content="Estimate total international relocation costs including flights, shipping, deposits, visas, and setup expenses. Free relocation budget planner.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/relocation-budget.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>Relocation Budget</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">💰 Finance Tool</div>
+<h1>Relocation Budget Calculator</h1>
+<p>Get a comprehensive estimate of what your international move will actually cost — before you commit.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">📋 Build Your Move Budget</div>
+<div class="form-grid">
+<div class="field"><label>Number of People Moving</label><select id="people"><option value="1">1 person</option><option value="2" selected>2 people</option><option value="3">3 people</option><option value="4">4+ people</option></select></div>
+<div class="field"><label>Move Distance</label><select id="distance"><option value="regional">Regional (same continent)</option><option value="intercontinental" selected>Intercontinental</option></select></div>
+<div class="field"><label>Flight Tickets ($)</label><input type="number" id="flights" value="1200" min="0"></div>
+<div class="field"><label>Shipping / Freight ($)</label><input type="number" id="shipping" value="3000" min="0"></div>
+<div class="field"><label>Visa & Legal Fees ($)</label><input type="number" id="visa" value="800" min="0"></div>
+<div class="field"><label>First Month Rent ($)</label><input type="number" id="firstRent" value="1500" min="0"></div>
+<div class="field"><label>Security Deposit (months)</label><select id="deposit"><option value="1">1 month</option><option value="2" selected>2 months</option><option value="3">3 months</option></select></div>
+<div class="field"><label>Temporary Housing (days)</label><input type="number" id="tempHousing" value="14" min="0"></div>
+<div class="field"><label>Temp Housing Daily Rate ($)</label><input type="number" id="tempRate" value="80" min="0"></div>
+<div class="field"><label>Furniture & Setup ($)</label><input type="number" id="furniture" value="2000" min="0"></div>
+<div class="field"><label>Travel Insurance ($)</label><input type="number" id="insurance" value="400" min="0"></div>
+<div class="field"><label>Emergency Buffer (%)</label><select id="buffer"><option value="10">10% buffer</option><option value="15" selected>15% buffer</option><option value="20">20% buffer</option><option value="25">25% buffer</option></select></div>
+</div>
+<div class="calc-actions">
+<button class="btn btn--primary btn--lg" onclick="calcBudget()">Calculate Total Budget</button>
+<button class="btn btn--secondary" onclick="resetBudget()">Reset</button>
+</div>
+<div class="result-box" id="result">
+<div class="result-box__title">Total Estimated Budget</div>
+<div class="result-box__main" id="totalBudget">—</div>
+<div class="result-box__sub" id="bufferNote"></div>
+<table class="comparison-table" id="budgetTable" style="margin-top:16px;"></table>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+
+<div class="seo-content">
+<h2>What People Forget When Budgeting a Move Abroad</h2>
+<p>Most people budget for flights and shipping — and forget the rest. The costs that surprise expats most often are:</p>
+<ul>
+<li><strong>Temporary housing:</strong> Most countries require a local address before approving a long-term rental. Budget 2–4 weeks in a furnished apartment or extended-stay hotel.</li>
+<li><strong>Security deposits:</strong> In Portugal and Spain, 2–3 months deposit is standard. In Asia, 1–2 months is common.</li>
+<li><strong>Visa application fees:</strong> D7 visas, residency permits, and notarization can run $500–$2,000 depending on country.</li>
+<li><strong>The 15% buffer:</strong> Always include it. International moves always have surprises.</li>
+</ul>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/cost-of-living.html" class="related-link"><span>🏙️</span>Cost of Living Comparison</a>
+<a href="/tools/shipping-container.html" class="related-link"><span>📦</span>Shipping Container Cost</a>
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>Currency Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function calcBudget() {
+  const people = +document.getElementById('people').value;
+  const flights = +document.getElementById('flights').value * people;
+  const shipping = +document.getElementById('shipping').value;
+  const visa = +document.getElementById('visa').value * people;
+  const rent = +document.getElementById('firstRent').value;
+  const depositMonths = +document.getElementById('deposit').value;
+  const deposit = rent * depositMonths;
+  const tempDays = +document.getElementById('tempHousing').value;
+  const tempRate = +document.getElementById('tempRate').value;
+  const tempTotal = tempDays * tempRate;
+  const furniture = +document.getElementById('furniture').value;
+  const insurance = +document.getElementById('insurance').value * people;
+  const bufferPct = +document.getElementById('buffer').value;
+  const subtotal = flights + shipping + visa + rent + deposit + tempTotal + furniture + insurance;
+  const buffer = subtotal * (bufferPct / 100);
+  const total = subtotal + buffer;
+
+  const items = [
+    ['✈️ Flights', flights], ['📦 Shipping/Freight', shipping], ['📄 Visa & Legal', visa],
+    ['🏠 First Month Rent', rent], ['🔑 Security Deposit', deposit],
+    ['🏨 Temporary Housing', tempTotal], ['🛋️ Furniture & Setup', furniture],
+    ['🏥 Insurance', insurance], [`⚠️ ${bufferPct}% Emergency Buffer`, buffer]
+  ];
+  let rows = '<tr><th>Item</th><th>Estimated Cost</th></tr>';
+  items.forEach(([n, v]) => { rows += `<tr><td>${n}</td><td class="val-highlight">${fmtCurrency(v)}</td></tr>`; });
+  rows += `<tr style="font-weight:700;"><td>TOTAL</td><td style="color:var(--text);font-family:'Syne',sans-serif;font-size:1.1rem;">${fmtCurrency(total)}</td></tr>`;
+  document.getElementById('budgetTable').innerHTML = rows;
+  document.getElementById('totalBudget').textContent = fmtCurrency(total);
+  document.getElementById('bufferNote').textContent = `Subtotal ${fmtCurrency(subtotal)} + ${bufferPct}% buffer ${fmtCurrency(buffer)}`;
+  showResult('result');
+}
+function resetBudget() { hideResult('result'); }
+</script>
+</body></html>

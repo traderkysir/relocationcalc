@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator — Body Mass Index (Metric & Imperial) | RelocationCalc</title>
+<meta name="description" content="Free BMI calculator for metric and imperial units. Calculate your Body Mass Index and see your health category with detailed guidance.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/bmi-calculator.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#health">Health</a><span class="bc-sep">›</span><span>BMI Calculator</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">❤️ Health Tool</div>
+<h1>BMI Calculator</h1>
+<p>Calculate your Body Mass Index in metric or imperial units. Get your health category and healthy weight range.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">⚖️ Calculate Your BMI</div>
+<div class="form-grid">
+<div class="field field--full"><label>Unit System</label><select id="units" onchange="toggleUnits()"><option value="metric">Metric (kg / cm)</option><option value="imperial">Imperial (lbs / ft & in)</option></select></div>
+<div id="metricFields" class="field"><label>Height (cm)</label><input type="number" id="heightCm" value="175" min="50" max="300"></div>
+<div id="imperialFields" class="hidden">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<div class="field"><label>Height (feet)</label><input type="number" id="heightFt" value="5" min="1" max="9"></div>
+<div class="field"><label>Height (inches)</label><input type="number" id="heightIn" value="9" min="0" max="11"></div>
+</div>
+</div>
+<div class="field"><label id="weightLabel">Weight (kg)</label><input type="number" id="weight" value="70" min="1"></div>
+<div class="field"><label>Age</label><input type="number" id="age" value="35" min="18" max="120"></div>
+<div class="field"><label>Sex</label><select id="sex"><option value="m">Male</option><option value="f">Female</option></select></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcBMI()">Calculate BMI</button><button class="btn btn--secondary" onclick="resetBMI()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Your BMI</div>
+<div class="result-box__main" id="bmiMain">—</div>
+<div class="result-box__sub" id="bmiSub"></div>
+<div class="results-grid" id="bmiGrid" style="margin-top:16px;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Understanding BMI Categories</h2>
+<p>BMI is a screening tool, not a definitive health measure. It doesn't account for muscle mass, bone density, or fat distribution. Use it as one data point alongside other health metrics.</p>
+<ul>
+<li><strong>Underweight:</strong> BMI below 18.5</li>
+<li><strong>Normal weight:</strong> BMI 18.5–24.9</li>
+<li><strong>Overweight:</strong> BMI 25–29.9</li>
+<li><strong>Obese Class I:</strong> BMI 30–34.9</li>
+<li><strong>Obese Class II:</strong> BMI 35–39.9</li>
+<li><strong>Obese Class III:</strong> BMI 40+</li>
+</ul>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/weight-converter.html" class="related-link"><span>⚖️</span>Weight Converter</a>
+<a href="/tools/health-insurance.html" class="related-link"><span>🏥</span>Expat Health Insurance</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function toggleUnits() {
+  const isImperial = document.getElementById('units').value === 'imperial';
+  document.getElementById('metricFields').classList.toggle('hidden', isImperial);
+  document.getElementById('imperialFields').classList.toggle('hidden', !isImperial);
+  document.getElementById('weightLabel').textContent = isImperial ? 'Weight (lbs)' : 'Weight (kg)';
+}
+function calcBMI() {
+  const isImperial = document.getElementById('units').value === 'imperial';
+  let heightM, weightKg;
+  if (isImperial) {
+    const ft = +document.getElementById('heightFt').value;
+    const inch = +document.getElementById('heightIn').value;
+    heightM = (ft * 12 + inch) * 0.0254;
+    weightKg = +document.getElementById('weight').value * 0.453592;
+  } else {
+    heightM = +document.getElementById('heightCm').value / 100;
+    weightKg = +document.getElementById('weight').value;
+  }
+  const bmi = weightKg / (heightM * heightM);
+  let category, color;
+  if (bmi < 18.5) { category = 'Underweight'; color = 'var(--primary)'; }
+  else if (bmi < 25) { category = 'Normal Weight ✅'; color = 'var(--green)'; }
+  else if (bmi < 30) { category = 'Overweight'; color = 'var(--accent)'; }
+  else { category = 'Obese'; color = 'var(--red)'; }
+  const minHealthy = 18.5 * heightM * heightM;
+  const maxHealthy = 24.9 * heightM * heightM;
+  const minDisp = isImperial ? fmt(minHealthy/0.453592,1)+' lbs' : fmt(minHealthy,1)+' kg';
+  const maxDisp = isImperial ? fmt(maxHealthy/0.453592,1)+' lbs' : fmt(maxHealthy,1)+' kg';
+  document.getElementById('bmiMain').textContent = bmi.toFixed(1);
+  document.getElementById('bmiMain').style.color = color;
+  document.getElementById('bmiSub').textContent = category;
+  document.getElementById('bmiGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${bmi.toFixed(1)}</span><span class="result-item__label">BMI Score</span></div>
+    <div class="result-item"><span class="result-item__val" style="color:${color}">${category.replace(' ✅','')}</span><span class="result-item__label">Category</span></div>
+    <div class="result-item"><span class="result-item__val">${minDisp}</span><span class="result-item__label">Healthy Min</span></div>
+    <div class="result-item"><span class="result-item__val">${maxDisp}</span><span class="result-item__label">Healthy Max</span></div>`;
+  showResult('result');
+}
+function resetBMI() { hideResult('result'); }
+</script>
+</body></html>

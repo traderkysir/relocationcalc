@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator — Exact Age in Years, Months & Days | RelocationCalc</title>
+<meta name="description" content="Calculate exact age in years, months, and days from any birthdate. Find upcoming birthdays and age in different countries.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/age-calculator.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#productivity">Productivity</a><span class="bc-sep">›</span><span>Age Calculator</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">⏱ Date Tool</div>
+<h1>Age Calculator</h1>
+<p>Calculate exact age in years, months, and days. Useful for visa applications, insurance forms, and official documents that require precise age.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🎂 Calculate Exact Age</div>
+<div class="form-grid">
+<div class="field"><label>Date of Birth</label><input type="date" id="dob" value="1990-01-15"></div>
+<div class="field"><label>Calculate Age As Of</label><input type="date" id="asOf"></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcAge()">Calculate Age</button><button class="btn btn--secondary" onclick="setToday()">Use Today</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Your Exact Age</div>
+<div class="result-box__main" id="ageMain">—</div>
+<div class="result-box__sub" id="ageSub"></div>
+<div class="results-grid" id="ageGrid" style="margin-top:16px;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Why Exact Age Matters for Expats</h2>
+<p>Visa applications, international health insurance quotes, property purchase documents, and pension calculations often require your exact age to the day. This tool provides the precision you need for official paperwork.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/date-duration.html" class="related-link"><span>📆</span>Date Duration</a>
+<a href="/tools/pregnancy-due-date.html" class="related-link"><span>🤱</span>Due Date Calculator</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('asOf').valueAsDate = new Date();
+function setToday() { document.getElementById('asOf').valueAsDate = new Date(); calcAge(); }
+function calcAge() {
+  const dob = new Date(document.getElementById('dob').value);
+  const asOf = new Date(document.getElementById('asOf').value);
+  if (isNaN(dob)||isNaN(asOf)) return;
+  let years = asOf.getFullYear()-dob.getFullYear();
+  let months = asOf.getMonth()-dob.getMonth();
+  let days = asOf.getDate()-dob.getDate();
+  if (days < 0) { months--; const prev = new Date(asOf.getFullYear(), asOf.getMonth(), 0); days += prev.getDate(); }
+  if (months < 0) { years--; months += 12; }
+  const totalDays = Math.floor((asOf-dob)/86400000);
+  const nextBday = new Date(asOf.getFullYear(), dob.getMonth(), dob.getDate());
+  if (nextBday < asOf) nextBday.setFullYear(nextBday.getFullYear()+1);
+  const daysToNext = Math.ceil((nextBday-asOf)/86400000);
+  document.getElementById('ageMain').textContent = `${years} years, ${months} months, ${days} days`;
+  document.getElementById('ageSub').textContent = `Total: ${fmt(totalDays)} days · ${fmt(totalDays/7,0)} weeks`;
+  document.getElementById('ageGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${years}</span><span class="result-item__label">Years</span></div>
+    <div class="result-item"><span class="result-item__val">${months}</span><span class="result-item__label">Extra Months</span></div>
+    <div class="result-item"><span class="result-item__val">${days}</span><span class="result-item__label">Extra Days</span></div>
+    <div class="result-item"><span class="result-item__val">${daysToNext}</span><span class="result-item__label">Days to Birthday</span></div>`;
+  showResult('result');
+}
+</script>
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Duration Calculator — Days Between Dates | RelocationCalc</title>
+<meta name="description" content="Calculate the number of days, weeks, months, and years between any two dates. Free date duration calculator for expats and travelers.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/date-duration.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#productivity">Productivity</a><span class="bc-sep">›</span><span>Date Duration</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">⏱ Date Tool</div>
+<h1>Date Duration Calculator</h1>
+<p>Count the exact days, weeks, months, and years between any two dates. Also add or subtract days from a date.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">📆 Days Between Two Dates</div>
+<div class="form-grid">
+<div class="field"><label>Start Date</label><input type="date" id="start" value="2025-01-01"></div>
+<div class="field"><label>End Date</label><input type="date" id="end"></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcDuration()">Calculate Duration</button><button class="btn btn--secondary" onclick="setEndToday()">End = Today</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Duration</div>
+<div class="result-box__main" id="durMain">—</div>
+<div class="result-box__sub" id="durSub"></div>
+<div class="results-grid" id="durGrid" style="margin-top:16px;"></div>
+</div>
+<div class="divider"></div>
+<div class="calc-card__title" style="margin-top:4px;">➕ Add/Subtract Days from a Date</div>
+<div class="form-grid">
+<div class="field"><label>Base Date</label><input type="date" id="baseDate"></div>
+<div class="field"><label>Days to Add (+) or Subtract (−)</label><input type="number" id="addDays" value="90"></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary" onclick="addSubtract()">Calculate New Date</button></div>
+<div id="addResult" style="margin-top:14px;font-size:1rem;font-weight:600;color:var(--primary);display:none;"></div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content"><h2>Common Uses for Expats</h2><p>The date duration calculator is essential for tracking visa deadlines, calculating lease end dates, planning travel windows within Schengen limits, and confirming FEIE eligibility periods.</p></div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/days-in-country.html" class="related-link"><span>📅</span>Days in Country Tracker</a>
+<a href="/tools/age-calculator.html" class="related-link"><span>🎂</span>Age Calculator</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('end').valueAsDate = new Date();
+document.getElementById('baseDate').valueAsDate = new Date();
+function setEndToday() { document.getElementById('end').valueAsDate=new Date(); calcDuration(); }
+function calcDuration() {
+  const s = new Date(document.getElementById('start').value);
+  const e = new Date(document.getElementById('end').value);
+  if (isNaN(s)||isNaN(e)) return;
+  const days = Math.abs(Math.round((e-s)/86400000));
+  const weeks = (days/7).toFixed(1);
+  const months = (days/30.44).toFixed(1);
+  const years = (days/365.25).toFixed(2);
+  document.getElementById('durMain').textContent = fmt(days) + ' days';
+  document.getElementById('durSub').textContent = `${weeks} weeks · ${months} months · ${years} years`;
+  document.getElementById('durGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${fmt(days)}</span><span class="result-item__label">Days</span></div>
+    <div class="result-item"><span class="result-item__val">${weeks}</span><span class="result-item__label">Weeks</span></div>
+    <div class="result-item"><span class="result-item__val">${months}</span><span class="result-item__label">Months</span></div>
+    <div class="result-item"><span class="result-item__val">${years}</span><span class="result-item__label">Years</span></div>`;
+  showResult('result');
+}
+function addSubtract() {
+  const base = new Date(document.getElementById('baseDate').value);
+  const add = +document.getElementById('addDays').value;
+  const result = new Date(base.getTime()+add*86400000);
+  const el = document.getElementById('addResult');
+  el.textContent = `Result: ${result.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}`;
+  el.style.display='block';
+}
+</script>
+</body></html>

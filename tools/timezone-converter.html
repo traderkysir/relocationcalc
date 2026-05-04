@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Zone Converter — World Clock & Meeting Planner | RelocationCalc</title>
+<meta name="description" content="Convert times between world time zones instantly. Plan international meetings across continents with our free time zone converter.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/timezone-converter.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#productivity">Productivity</a><span class="bc-sep">›</span><span>Time Zone Converter</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">⏱ Productivity Tool</div>
+<h1>Time Zone Converter</h1>
+<p>Instantly convert times between any two time zones. Essential for expats coordinating with home offices, clients, and family.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🕐 Convert Time Zones</div>
+<div class="form-grid">
+<div class="field"><label>Date</label><input type="date" id="tzDate"></div>
+<div class="field"><label>Time</label><input type="time" id="tzTime" value="09:00"></div>
+<div class="field"><label>From Time Zone</label><select id="fromTZ"></select></div>
+<div class="field"><label>To Time Zone</label><select id="toTZ"></select></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="convertTZ()">Convert Time</button><button class="btn btn--secondary" onclick="setNow()">Use Current Time</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Converted Time</div>
+<div class="result-box__main" id="tzMain">—</div>
+<div class="result-box__sub" id="tzSub"></div>
+<table class="comparison-table" id="worldTable" style="margin-top:16px;"></table>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Time Zone Tips for Expats</h2>
+<p>Living in a different time zone from your employer or clients requires planning. Portugal (WET/WEST) is UTC+0/+1, making it one of the best European time zones for working with US clients on the East Coast — only 4–5 hours difference.</p>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/days-in-country.html" class="related-link"><span>📅</span>Days in Country Tracker</a>
+<a href="/tools/date-duration.html" class="related-link"><span>📆</span>Date Duration</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const ZONES = [
+  ['America/New_York','🇺🇸 New York (ET)'],['America/Chicago','🇺🇸 Chicago (CT)'],
+  ['America/Denver','🇺🇸 Denver (MT)'],['America/Los_Angeles','🇺🇸 Los Angeles (PT)'],
+  ['America/Anchorage','🇺🇸 Anchorage (AKT)'],['Pacific/Honolulu','🇺🇸 Honolulu (HT)'],
+  ['America/Toronto','🇨🇦 Toronto'],['America/Vancouver','🇨🇦 Vancouver'],
+  ['America/Sao_Paulo','🇧🇷 São Paulo'],['America/Mexico_City','🇲🇽 Mexico City'],
+  ['America/Bogota','🇨🇴 Bogotá'],['Atlantic/Azores','🇵🇹 Azores'],
+  ['Europe/London','🇬🇧 London (GMT)'],['Europe/Lisbon','🇵🇹 Lisbon'],
+  ['Europe/Paris','🇫🇷 Paris (CET)'],['Europe/Berlin','🇩🇪 Berlin'],
+  ['Europe/Madrid','🇪🇸 Madrid'],['Europe/Rome','🇮🇹 Rome'],
+  ['Europe/Athens','🇬🇷 Athens'],['Europe/Istanbul','🇹🇷 Istanbul'],
+  ['Africa/Cairo','🇪🇬 Cairo'],['Africa/Johannesburg','🇿🇦 Johannesburg'],
+  ['Asia/Dubai','🇦🇪 Dubai'],['Asia/Kolkata','🇮🇳 Mumbai/Delhi'],
+  ['Asia/Bangkok','🇹🇭 Bangkok'],['Asia/Singapore','🇸🇬 Singapore'],
+  ['Asia/Hong_Kong','🇭🇰 Hong Kong'],['Asia/Shanghai','🇨🇳 Shanghai'],
+  ['Asia/Tokyo','🇯🇵 Tokyo'],['Asia/Seoul','🇰🇷 Seoul'],
+  ['Australia/Sydney','🇦🇺 Sydney'],['Pacific/Auckland','🇳🇿 Auckland']
+];
+const fromSel = document.getElementById('fromTZ');
+const toSel = document.getElementById('toTZ');
+ZONES.forEach(([tz,label],i) => {
+  fromSel.add(new Option(label,tz));
+  toSel.add(new Option(label,tz));
+});
+fromSel.value = 'America/New_York';
+toSel.value = 'Europe/Lisbon';
+document.getElementById('tzDate').valueAsDate = new Date();
+function setNow() {
+  const now = new Date();
+  document.getElementById('tzDate').valueAsDate = now;
+  document.getElementById('tzTime').value = now.toTimeString().slice(0,5);
+  convertTZ();
+}
+function convertTZ() {
+  const date = document.getElementById('tzDate').value;
+  const time = document.getElementById('tzTime').value;
+  const fromTZ = document.getElementById('fromTZ').value;
+  const toTZ = document.getElementById('toTZ').value;
+  if (!date || !time) return;
+  const dateStr = `${date}T${time}:00`;
+  const srcDate = new Date(new Date(dateStr).toLocaleString('en-US', {timeZone: fromTZ}));
+  const diff = new Date(dateStr) - srcDate;
+  const utcMs = new Date(dateStr).getTime() - diff;
+  const result = new Date(utcMs);
+  const toStr = result.toLocaleString('en-US', {timeZone: toTZ, weekday:'short', month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZoneName:'short'});
+  document.getElementById('tzMain').textContent = toStr;
+  document.getElementById('tzSub').textContent = `${time} in ${fromTZ.split('/')[1]?.replace('_',' ')} = above in ${toTZ.split('/')[1]?.replace('_',' ')}`;
+  let worldRows = '<tr><th>City</th><th>Local Time</th></tr>';
+  const worldZones = ['America/New_York','Europe/London','Europe/Lisbon','Asia/Dubai','Asia/Singapore','Asia/Tokyo','Australia/Sydney'];
+  worldZones.forEach(tz => {
+    const t = new Date(utcMs).toLocaleTimeString('en-US',{timeZone:tz,hour:'2-digit',minute:'2-digit'});
+    const zLabel = ZONES.find(z=>z[0]===tz)?.[1]||tz;
+    worldRows += `<tr><td>${zLabel}</td><td class="val-highlight">${t}</td></tr>`;
+  });
+  document.getElementById('worldTable').innerHTML = worldRows;
+  showResult('result');
+}
+</script>
+</body></html>

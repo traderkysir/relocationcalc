@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shoe Size Converter — US, EU, UK, CM | RelocationCalc</title>
+<meta name="description" content="Convert shoe sizes between US, EU, UK, and centimeter measurements for men and women. Free international shoe size converter.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/shoe-size.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#converters">Converters</a><span class="bc-sep">›</span><span>Shoe Sizes</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">👟 Size Converter</div>
+<h1>Shoe Size Converter</h1>
+<p>Convert shoe sizes between US, EU, UK, and centimeter measurements. Men's and women's tables included.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">👟 Shoe Size Conversion Chart</div>
+<div class="form-grid"><div class="field"><label>Category</label><select id="shoecat" onchange="showShoeChart()"><option value="men">Men's Shoes</option><option value="women">Women's Shoes</option></select></div></div>
+<div id="shoeChart" style="margin-top:20px;overflow-x:auto;"></div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content"><h2>Shoe Sizing Systems Explained</h2><p>EU sizing is based on the length of the last (the mold) in Paris points (⅔ cm). US sizing is based on barleycorns (⅓ inch). UK sizing is similar to US but typically 1 size smaller for men's and 2 sizes smaller for women's.</p></div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/clothing-size.html" class="related-link"><span>👕</span>Clothing Size Converter</a>
+<a href="/tools/length-converter.html" class="related-link"><span>📏</span>Length Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const MEN_SHOES = [
+  ['6','39','5.5','24'],['6.5','39-40','6','24.5'],['7','40','6.5','25'],['7.5','40-41','7','25.5'],
+  ['8','41','7.5','26'],['8.5','41-42','8','26.5'],['9','42','8.5','27'],['9.5','42-43','9','27.5'],
+  ['10','43','9.5','28'],['10.5','43-44','10','28.5'],['11','44','10.5','29'],['11.5','44-45','11','29.5'],
+  ['12','45','11.5','30'],['13','46','12.5','31'],['14','47','13.5','32'],
+];
+const WOMEN_SHOES = [
+  ['5','35-36','3','22'],['5.5','36','3.5','22.5'],['6','36-37','4','23'],['6.5','37','4.5','23.5'],
+  ['7','37-38','5','24'],['7.5','38','5.5','24.5'],['8','38-39','6','25'],['8.5','39','6.5','25.5'],
+  ['9','39-40','7','26'],['9.5','40','7.5','26.5'],['10','40-41','8','27'],['10.5','41','8.5','27.5'],
+  ['11','41-42','9','28'],['12','42-43','10','29'],
+];
+function showShoeChart() {
+  const cat = document.getElementById('shoecat').value;
+  const data = cat === 'men' ? MEN_SHOES : WOMEN_SHOES;
+  let html = '<table class="comparison-table"><tr><th>🇺🇸 US</th><th>🇪🇺 EU</th><th>🇬🇧 UK</th><th>CM</th></tr>';
+  data.forEach(r => { html += `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`; });
+  html += '</table>';
+  document.getElementById('shoeChart').innerHTML = html;
+}
+showShoeChart();
+</script>
+</body></html>

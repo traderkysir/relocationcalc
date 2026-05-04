@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RelocationCalc.com — Free Calculators for Expats & International Movers</title>
+<meta name="description" content="24 free calculators and converters for expats, digital nomads, and international movers. Currency converter, cost of living, D7 visa checker, time zones, and more.">
+<meta name="keywords" content="relocation calculator, expat calculator, cost of living calculator, currency converter, D7 visa calculator, international move calculator">
+<meta property="og:title" content="RelocationCalc.com — Free Tools for International Movers">
+<meta property="og:description" content="24 free calculators for expats and digital nomads. Currency, cost of living, taxes, time zones, and more.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.relocationcalc.com">
+<link rel="canonical" href="https://www.relocationcalc.com">
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"RelocationCalc","url":"https://www.relocationcalc.com","description":"Free calculators and converters for expats and international movers","potentialAction":{"@type":"SearchAction","target":"https://www.relocationcalc.com?search={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <div class="nav__logo-icon">🌍</div>
+      Relocation<span>Calc</span>
+    </a>
+    <div class="nav__links">
+      <a href="#finance">💰 Finance</a>
+      <a href="#health">❤️ Health</a>
+      <a href="#productivity">⏱ Productivity</a>
+      <a href="#converters">📐 Converters</a>
+    </div>
+    <button class="nav__mobile-toggle" aria-label="Menu">☰</button>
+  </div>
+  <div class="nav__mobile-menu">
+    <a href="#finance">💰 Finance Tools</a>
+    <a href="#health">❤️ Health Tools</a>
+    <a href="#productivity">⏱ Productivity</a>
+    <a href="#converters">📐 Converters</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__eyebrow">🌐 Free forever · No signup required</div>
+    <h1>Every Calculator You Need<br>to <em>Move Abroad</em></h1>
+    <p class="hero__sub">Free tools for expats, digital nomads, and anyone planning an international relocation. No ads pestering you, no paywalls.</p>
+    <div class="hero__search">
+      <input type="text" id="searchInput" placeholder="Search 24 tools… try 'currency' or 'BMI'" autocomplete="off">
+      <button onclick="doSearch()">Search</button>
+    </div>
+    <div class="hero__stats">
+      <div class="hero__stat">
+        <div class="hero__stat-num">24</div>
+        <div class="hero__stat-label">Free Tools</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-num">0</div>
+        <div class="hero__stat-label">Sign-ups needed</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-num">180+</div>
+        <div class="hero__stat-label">Countries covered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AD SLOT - LEADERBOARD -->
+<div class="container">
+  <div class="ad-slot ad-slot--leaderboard" id="ad-top">Advertisement</div>
+</div>
+
+<!-- TOOLS DIRECTORY -->
+<section class="section">
+  <div class="container">
+
+    <div class="no-results" id="noResults">No tools matched your search. Try "currency", "mortgage", or "weight".</div>
+
+    <!-- TIER 1: FINANCE -->
+    <div class="category-section" id="finance" data-section="finance">
+      <div class="category-header">
+        <span class="category-badge badge--finance">💰 Finance & Wealth</span>
+        <h3>Financial Planning Tools</h3>
+      </div>
+      <div class="tools-grid">
+
+        <a href="/tools/currency-converter.html" class="tool-card" data-tags="currency money exchange rate convert forex">
+          <div class="tool-card__icon icon--finance">💱</div>
+          <h4>Currency Converter <span class="tag tag--popular">Popular</span></h4>
+          <p>Live exchange rates for 160+ currencies. Convert any amount instantly.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/cost-of-living.html" class="tool-card" data-tags="cost of living city compare rent expenses">
+          <div class="tool-card__icon icon--finance">🏙️</div>
+          <h4>Cost of Living Comparison</h4>
+          <p>Compare living costs between two cities. Rent, food, transport, and more.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/relocation-budget.html" class="tool-card" data-tags="relocation budget move cost planning">
+          <div class="tool-card__icon icon--finance">📋</div>
+          <h4>Relocation Budget Calculator</h4>
+          <p>Estimate total moving costs: shipping, flights, deposits, and setup expenses.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/mortgage-vs-rent.html" class="tool-card" data-tags="mortgage rent buy house abroad">
+          <div class="tool-card__icon icon--finance">🏠</div>
+          <h4>Mortgage vs. Rent Abroad</h4>
+          <p>Calculate whether buying or renting makes more sense in your destination country.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/foreign-income-tax.html" class="tool-card" data-tags="tax income foreign expat irs">
+          <div class="tool-card__icon icon--finance">🧾</div>
+          <h4>Foreign Income Tax Estimator</h4>
+          <p>Estimate US FEIE and FBAR thresholds and your potential foreign tax liability.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/d7-visa-checker.html" class="tool-card" data-tags="D7 visa portugal passive income requirement">
+          <div class="tool-card__icon icon--finance">🇵🇹</div>
+          <h4>D7 Visa Income Checker <span class="tag tag--new">New</span></h4>
+          <p>Check if your passive income meets Portugal's D7 visa monthly threshold.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/wire-transfer.html" class="tool-card" data-tags="wire transfer fee international bank send money">
+          <div class="tool-card__icon icon--finance">🏦</div>
+          <h4>Wire Transfer Fee Comparator</h4>
+          <p>Compare fees across Wise, Western Union, PayPal, and bank wire for your transfer.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/retirement-stretch.html" class="tool-card" data-tags="retirement savings stretch abroad how long money last">
+          <div class="tool-card__icon icon--finance">🏖️</div>
+          <h4>Retirement Savings Stretch</h4>
+          <p>How many years will your savings last in a lower-cost country?</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- TIER 2: HEALTH -->
+    <div class="category-section" id="health" data-section="health">
+      <div class="category-header">
+        <span class="category-badge badge--health">❤️ Health & Wellness</span>
+        <h3>Health Calculators</h3>
+      </div>
+      <div class="tools-grid">
+
+        <a href="/tools/bmi-calculator.html" class="tool-card" data-tags="BMI body mass index weight height health">
+          <div class="tool-card__icon icon--health">⚖️</div>
+          <h4>BMI Calculator</h4>
+          <p>Calculate your Body Mass Index in metric or imperial units with a health category breakdown.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/health-insurance.html" class="tool-card" data-tags="health insurance expat international cost estimate">
+          <div class="tool-card__icon icon--health">🏥</div>
+          <h4>Expat Health Insurance Estimator</h4>
+          <p>Estimate monthly international health insurance costs based on your age and region.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/pregnancy-due-date.html" class="tool-card" data-tags="pregnancy due date calculator weeks">
+          <div class="tool-card__icon icon--health">🤱</div>
+          <h4>Pregnancy Due Date</h4>
+          <p>Calculate your estimated due date and current week of pregnancy.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/shipping-container.html" class="tool-card" data-tags="shipping container cost move furniture freight">
+          <div class="tool-card__icon icon--health">📦</div>
+          <h4>Shipping Container Cost</h4>
+          <p>Estimate international freight costs for 20ft and 40ft containers by route.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- AD SLOT - MID PAGE -->
+    <div class="ad-slot ad-slot--leaderboard" id="ad-mid">Advertisement</div>
+
+    <!-- TIER 3: PRODUCTIVITY -->
+    <div class="category-section" id="productivity" data-section="productivity">
+      <div class="category-header">
+        <span class="category-badge badge--productivity">⏱ Productivity & Life</span>
+        <h3>Everyday Planning Tools</h3>
+      </div>
+      <div class="tools-grid">
+
+        <a href="/tools/timezone-converter.html" class="tool-card" data-tags="time zone convert meeting planner world clock">
+          <div class="tool-card__icon icon--productivity">🕐</div>
+          <h4>Time Zone Converter <span class="tag tag--popular">Popular</span></h4>
+          <p>Convert times across world time zones and plan meetings across continents.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/days-in-country.html" class="tool-card" data-tags="days country tracker tax residency 183 day rule">
+          <div class="tool-card__icon icon--productivity">📅</div>
+          <h4>Days-in-Country Tracker</h4>
+          <p>Track your days spent in a country for tax residency and visa compliance.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/age-calculator.html" class="tool-card" data-tags="age calculator birthday years old">
+          <div class="tool-card__icon icon--productivity">🎂</div>
+          <h4>Age Calculator</h4>
+          <p>Calculate exact age in years, months, and days from any birthdate.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/date-duration.html" class="tool-card" data-tags="date duration days between calculator">
+          <div class="tool-card__icon icon--productivity">📆</div>
+          <h4>Date Duration Calculator</h4>
+          <p>Count days, weeks, and months between any two dates.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/phone-code.html" class="tool-card" data-tags="phone code country international dialing code">
+          <div class="tool-card__icon icon--productivity">📞</div>
+          <h4>International Phone Code Lookup</h4>
+          <p>Find country dialing codes for calling internationally from anywhere.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/electricity-converter.html" class="tool-card" data-tags="electricity voltage watt converter adapter">
+          <div class="tool-card__icon icon--productivity">⚡</div>
+          <h4>Electricity Voltage Converter</h4>
+          <p>Check voltage compatibility and wattage conversion for international appliances.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- TIER 4: CONVERTERS -->
+    <div class="category-section" id="converters" data-section="converters">
+      <div class="category-header">
+        <span class="category-badge badge--converters">📐 Unit Converters</span>
+        <h3>Quick Conversion Tools</h3>
+      </div>
+      <div class="tools-grid">
+
+        <a href="/tools/length-converter.html" class="tool-card" data-tags="length cm inches feet meters convert">
+          <div class="tool-card__icon icon--converters">📏</div>
+          <h4>Length Converter</h4>
+          <p>Convert between centimeters, inches, feet, meters, miles, and kilometers.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/weight-converter.html" class="tool-card" data-tags="weight kg lbs pounds kilograms convert">
+          <div class="tool-card__icon icon--converters">⚖️</div>
+          <h4>Weight Converter</h4>
+          <p>Convert kilograms, pounds, stones, ounces, and grams instantly.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/temperature-converter.html" class="tool-card" data-tags="temperature celsius fahrenheit kelvin convert">
+          <div class="tool-card__icon icon--converters">🌡️</div>
+          <h4>Temperature Converter <span class="tag tag--popular">Popular</span></h4>
+          <p>Convert between Celsius, Fahrenheit, and Kelvin.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/clothing-size.html" class="tool-card" data-tags="clothing size US EU UK convert international">
+          <div class="tool-card__icon icon--converters">👕</div>
+          <h4>Clothing Size Converter</h4>
+          <p>Convert clothing sizes between US, EU, UK, and Asian sizing systems.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/shoe-size.html" class="tool-card" data-tags="shoe size US EU UK convert">
+          <div class="tool-card__icon icon--converters">👟</div>
+          <h4>Shoe Size Converter</h4>
+          <p>Convert shoe sizes between US, EU, UK, and CM across men's and women's.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+        <a href="/tools/distance-converter.html" class="tool-card" data-tags="distance miles km kilometers convert">
+          <div class="tool-card__icon icon--converters">🗺️</div>
+          <h4>Distance Converter</h4>
+          <p>Convert miles, kilometers, nautical miles, and light years.</p>
+          <div class="tool-card__link">Use tool →</div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BOTTOM AD -->
+<div class="container">
+  <div class="ad-slot ad-slot--leaderboard" id="ad-bottom">Advertisement</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <h3>🌍 RelocationCalc</h3>
+        <p>Free calculators and converters for expats, digital nomads, and anyone planning an international move. No sign-up, no fees, ever.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Finance Tools</h4>
+        <ul>
+          <li><a href="/tools/currency-converter.html">Currency Converter</a></li>
+          <li><a href="/tools/cost-of-living.html">Cost of Living</a></li>
+          <li><a href="/tools/d7-visa-checker.html">D7 Visa Checker</a></li>
+          <li><a href="/tools/retirement-stretch.html">Retirement Planner</a></li>
+          <li><a href="/tools/wire-transfer.html">Wire Transfer Fees</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Life Tools</h4>
+        <ul>
+          <li><a href="/tools/timezone-converter.html">Time Zone Converter</a></li>
+          <li><a href="/tools/days-in-country.html">Days in Country</a></li>
+          <li><a href="/tools/bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="/tools/age-calculator.html">Age Calculator</a></li>
+          <li><a href="/tools/pregnancy-due-date.html">Due Date Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Converters</h4>
+        <ul>
+          <li><a href="/tools/temperature-converter.html">Temperature</a></li>
+          <li><a href="/tools/length-converter.html">Length</a></li>
+          <li><a href="/tools/weight-converter.html">Weight</a></li>
+          <li><a href="/tools/clothing-size.html">Clothing Sizes</a></li>
+          <li><a href="/tools/shoe-size.html">Shoe Sizes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 RelocationCalc.com — Free tools for movers worldwide</span>
+      <span><a href="/privacy.html">Privacy Policy</a> · <a href="/about.html">About</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', doSearch);
+searchInput.addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+function doSearch() {
+  const q = searchInput.value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.tool-card');
+  const sections = document.querySelectorAll('.category-section');
+  let totalVisible = 0;
+
+  cards.forEach(card => {
+    const tags = (card.dataset.tags || '').toLowerCase();
+    const title = card.querySelector('h4')?.textContent.toLowerCase() || '';
+    const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+    const match = !q || tags.includes(q) || title.includes(q) || desc.includes(q);
+    card.classList.toggle('hidden', !match);
+    if (match) totalVisible++;
+  });
+
+  sections.forEach(section => {
+    const visibleCards = section.querySelectorAll('.tool-card:not(.hidden)');
+    section.classList.toggle('hidden', visibleCards.length === 0 && q !== '');
+  });
+
+  document.getElementById('noResults').classList.toggle('show', totalVisible === 0 && q !== '');
+}
+</script>
+</body>
+</html>

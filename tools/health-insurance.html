@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expat Health Insurance Cost Estimator | RelocationCalc</title>
+<meta name="description" content="Estimate monthly international health insurance costs for expats based on age, region, and coverage level. Free expat health insurance calculator.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/health-insurance.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#health">Health</a><span class="bc-sep">›</span><span>Health Insurance Estimator</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">❤️ Health Tool</div>
+<h1>Expat Health Insurance Estimator</h1>
+<p>Get a ballpark estimate of international health insurance costs based on your age, region, and desired coverage. Always get actual quotes from brokers for final numbers.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🏥 Estimate Coverage Costs</div>
+<div class="info-tip"><span>ℹ️</span><div>These are estimates based on typical market ranges. Actual premiums vary significantly. Get quotes from <strong>Cigna Global, Aetna International, Allianz Care</strong>, or an expat insurance broker.</div></div>
+<div class="form-grid" style="margin-top:16px;">
+<div class="field"><label>Your Age</label><input type="number" id="age" value="40" min="18" max="80"></div>
+<div class="field"><label>Destination Region</label><select id="region">
+<option value="1.0">🇪🇺 Europe (Western)</option>
+<option value="0.9">🇵🇹 Portugal / Spain</option>
+<option value="0.7">🇲🇽 Latin America</option>
+<option value="0.6">🇹🇭 Southeast Asia</option>
+<option value="0.5">🇮🇳 South Asia</option>
+<option value="1.1">🇦🇺 Australia/NZ</option>
+<option value="1.3">🇸🇬 Singapore/HK</option>
+</select></div>
+<div class="field"><label>Coverage Level</label><select id="coverage">
+<option value="0.6">Basic (hospitalization only)</option>
+<option value="1.0" selected>Standard (hospital + outpatient)</option>
+<option value="1.5">Comprehensive (full)</option>
+<option value="2.0">Premium (with US coverage)</option>
+</select></div>
+<div class="field"><label>Include Dental?</label><select id="dental"><option value="1.0">No dental</option><option value="1.2">With dental</option></select></div>
+<div class="field"><label>Number of Adults</label><select id="adults"><option value="1">1 adult</option><option value="1.8">2 adults</option></select></div>
+<div class="field"><label>Children (under 18)</label><select id="children"><option value="0">No children</option><option value="0.3">1 child</option><option value="0.5">2 children</option><option value="0.65">3+ children</option></select></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="calcInsurance()">Estimate Cost</button><button class="btn btn--secondary" onclick="resetIns()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Estimated Monthly Premium</div>
+<div class="result-box__main" id="insMain">—</div>
+<div class="result-box__sub" id="insSub"></div>
+<div class="results-grid" id="insGrid" style="margin-top:16px;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>International Health Insurance for Expats</h2>
+<p>International health insurance typically costs $100–600/month for a single adult depending on age and coverage level. Many countries require proof of health coverage as part of their long-term visa application process, including Portugal's D7 and Spain's non-lucrative visa.</p>
+<ul>
+<li><strong>Basic hospital coverage:</strong> Good for emergencies, lower cost</li>
+<li><strong>Comprehensive plans:</strong> Include outpatient, dental, vision, and mental health</li>
+<li><strong>US-included plans:</strong> Most expensive due to US healthcare costs — avoid if you won't need US coverage</li>
+</ul>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/bmi-calculator.html" class="related-link"><span>⚖️</span>BMI Calculator</a>
+<a href="/tools/relocation-budget.html" class="related-link"><span>📋</span>Relocation Budget</a>
+<a href="/tools/d7-visa-checker.html" class="related-link"><span>🇵🇹</span>D7 Visa Checker</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function calcInsurance() {
+  const age = +document.getElementById('age').value;
+  const region = +document.getElementById('region').value;
+  const coverage = +document.getElementById('coverage').value;
+  const dental = +document.getElementById('dental').value;
+  const adults = +document.getElementById('adults').value;
+  const children = +document.getElementById('children').value;
+  // Base monthly cost for single 30yo standard plan
+  let base = 180;
+  // Age factor
+  if (age < 30) base *= 0.8;
+  else if (age < 40) base *= 1.0;
+  else if (age < 50) base *= 1.35;
+  else if (age < 60) base *= 1.8;
+  else if (age < 70) base *= 2.4;
+  else base *= 3.2;
+  const monthly = base * region * coverage * dental * (adults + children);
+  const annual = monthly * 12;
+  const low = monthly * 0.75, high = monthly * 1.35;
+  document.getElementById('insMain').textContent = fmtCurrency(monthly) + '/month';
+  document.getElementById('insSub').textContent = `Estimated range: ${fmtCurrency(low)}–${fmtCurrency(high)}/month · Annual: ${fmtCurrency(annual)}`;
+  document.getElementById('insGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(monthly)}</span><span class="result-item__label">Monthly Est.</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(annual)}</span><span class="result-item__label">Annual Est.</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(low)}–${fmtCurrency(high)}</span><span class="result-item__label">Likely Range/mo</span></div>`;
+  showResult('result');
+}
+function resetIns() { hideResult('result'); }
+</script>
+</body></html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clothing Size Converter — US, EU, UK, Asian Sizes | RelocationCalc</title>
+<meta name="description" content="Convert clothing sizes between US, EU, UK, and Asian sizing systems for men and women. Free international clothing size chart.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/clothing-size.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#converters">Converters</a><span class="bc-sep">›</span><span>Clothing Sizes</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">👕 Size Converter</div>
+<h1>Clothing Size Converter</h1>
+<p>Convert women's and men's clothing sizes between US, EU, UK, and Asian systems. Never buy the wrong size abroad again.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">👕 International Size Chart</div>
+<div class="form-grid">
+<div class="field"><label>Category</label><select id="category" onchange="showSizeChart()"><option value="women">Women's Tops / Dresses</option><option value="men">Men's Tops / Jackets</option></select></div>
+</div>
+<div id="sizeChart" style="margin-top:20px;overflow-x:auto;"></div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content"><h2>Why Clothing Sizes Differ Internationally</h2><p>Clothing sizes are not standardized globally. A US size 8 dress corresponds roughly to EU 38, UK 12, and AU 12 — but sizing can vary by brand. When shopping abroad, always check measurements in centimeters and use this chart as a starting point.</p></div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/shoe-size.html" class="related-link"><span>👟</span>Shoe Size Converter</a>
+<a href="/tools/length-converter.html" class="related-link"><span>📏</span>Length Converter</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+const WOMEN = [
+  ['XS','2','32','6','34'],['XS','4','34','8','36'],['S','6','36','10','38'],
+  ['S','8','38','12','40'],['M','10','40','14','42'],['M','12','42','16','44'],
+  ['L','14','44','18','46'],['L','16','46','20','48'],['XL','18','48','22','50'],
+  ['XXL','20','50','24','52'],['XXL','22','52','26','54'],
+];
+const MEN = [
+  ['XS','32-34','42','32-34','XS'],['S','35-37','44','35-37','S'],
+  ['M','38-40','46-48','38-40','M'],['L','41-43','50-52','41-43','L'],
+  ['XL','44-46','54-56','44-46','XL'],['XXL','47-49','58-60','47-49','XXL'],
+];
+function showSizeChart() {
+  const cat = document.getElementById('category').value;
+  let html = '';
+  if (cat === 'women') {
+    html = '<table class="comparison-table"><tr><th>Size</th><th>🇺🇸 US</th><th>🇪🇺 EU</th><th>🇬🇧 UK</th><th>🌏 Asian</th></tr>';
+    WOMEN.forEach(r => { html += `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`; });
+  } else {
+    html = '<table class="comparison-table"><tr><th>Size</th><th>🇺🇸 US/CA</th><th>🇪🇺 EU</th><th>🇬🇧 UK</th><th>International</th></tr>';
+    MEN.forEach(r => { html += `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`; });
+  }
+  html += '</table>';
+  document.getElementById('sizeChart').innerHTML = html;
+}
+showSizeChart();
+</script>
+</body></html>

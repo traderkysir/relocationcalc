@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cost of Living Comparison Calculator | RelocationCalc</title>
+<meta name="description" content="Compare cost of living between two cities worldwide. See how your salary stretches in your destination country with our free relocation tool.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/cost-of-living.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#finance">Finance</a><span class="bc-sep">›</span><span>Cost of Living Comparison</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">💰 Finance Tool</div>
+<h1>Cost of Living Comparison</h1>
+<p>Enter your current city's costs and compare them to your destination. See exactly how much you'd need to maintain your lifestyle.</p>
+</div></div>
+
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">🏙️ Compare Two Cities</div>
+<div class="info-tip"><span>📝</span><div>Enter your <strong>current monthly expenses</strong> on the left, then adjust the destination cost index to reflect your target city. Use <a href="https://www.numbeo.com" target="_blank" rel="noopener">Numbeo.com</a> for real index figures.</div></div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;">
+<div>
+<div style="font-weight:700;font-size:.875rem;margin-bottom:12px;color:var(--text);">📍 Current City</div>
+<div class="field"><label>Monthly Rent ($)</label><input type="number" id="rent1" value="2000" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Groceries ($)</label><input type="number" id="groceries1" value="400" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Transport ($)</label><input type="number" id="transport1" value="200" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Dining Out ($)</label><input type="number" id="dining1" value="300" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Utilities ($)</label><input type="number" id="utilities1" value="150" min="0"></div>
+<div class="field" style="margin-top:10px;"><label>Entertainment ($)</label><input type="number" id="entertain1" value="200" min="0"></div>
+</div>
+<div>
+<div style="font-weight:700;font-size:.875rem;margin-bottom:12px;color:var(--text);">✈️ Destination City</div>
+<div class="field"><label>Cost Index <small>(vs current = 100)</small></label>
+<select id="cityPreset" onchange="applyPreset()">
+<option value="">— Custom index —</option>
+<option value="45">🇵🇹 Lisbon/Madeira (≈45)</option>
+<option value="38">🇵🇹 Porto (≈38)</option>
+<option value="35">🇲🇽 Mexico City (≈35)</option>
+<option value="30">🇹🇭 Bangkok (≈30)</option>
+<option value="28">🇻🇳 Ho Chi Minh City (≈28)</option>
+<option value="40">🇪🇸 Barcelona (≈40)</option>
+<option value="55">🇩🇪 Berlin (≈55)</option>
+<option value="80">🇦🇺 Sydney (≈80)</option>
+<option value="90">🇨🇦 Toronto (≈90)</option>
+<option value="120">🇨🇭 Zurich (≈120)</option>
+<option value="130">🇸🇬 Singapore (≈130)</option>
+</select>
+</div>
+<div class="field" style="margin-top:10px;"><label>Or enter custom index (100 = same as current)</label><input type="number" id="costIndex" value="45" min="1" max="300"></div>
+</div>
+</div>
+
+<div class="calc-actions">
+<button class="btn btn--primary btn--lg" onclick="compare()">Compare Cities</button>
+<button class="btn btn--secondary" onclick="resetCOL()">Reset</button>
+</div>
+
+<div class="result-box" id="result">
+<div class="result-box__title">Monthly Savings Potential</div>
+<div class="result-box__main" id="savingsMain">—</div>
+<div class="result-box__sub" id="savingsSub"></div>
+<div class="results-grid" style="margin-top:16px;" id="resultsGrid"></div>
+<table class="comparison-table" id="breakdownTable" style="margin-top:16px;"></table>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+
+<div class="seo-content">
+<h2>Understanding Cost of Living Indexes</h2>
+<p>A cost of living index of 45 means life in that city costs roughly 45% of what it costs in a city indexed at 100. This tool uses your actual expenses as the baseline, making the comparison personal and actionable rather than abstract.</p>
+<h2>Most Popular Expat Destinations by Cost</h2>
+<ul>
+<li><strong>Portugal (Lisbon/Madeira):</strong> 40–50% of major US/UK cities. Popular D7 visa destination.</li>
+<li><strong>Mexico City:</strong> 30–40% of New York. Large expat community, fast internet, great food scene.</li>
+<li><strong>Thailand:</strong> 25–35% of Western cities. Excellent healthcare, warm weather, strong expat infrastructure.</li>
+<li><strong>Colombia (Medellín):</strong> 30–40% of US cities. Nicknamed "City of Eternal Spring."</li>
+</ul>
+</div>
+
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/relocation-budget.html" class="related-link"><span>📋</span>Relocation Budget</a>
+<a href="/tools/currency-converter.html" class="related-link"><span>💱</span>Currency Converter</a>
+<a href="/tools/retirement-stretch.html" class="related-link"><span>🏖️</span>Retirement Stretch</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function applyPreset() {
+  const v = document.getElementById('cityPreset').value;
+  if (v) document.getElementById('costIndex').value = v;
+  compare();
+}
+function compare() {
+  const rent = +document.getElementById('rent1').value||0;
+  const groc = +document.getElementById('groceries1').value||0;
+  const trans = +document.getElementById('transport1').value||0;
+  const dining = +document.getElementById('dining1').value||0;
+  const util = +document.getElementById('utilities1').value||0;
+  const ent = +document.getElementById('entertain1').value||0;
+  const idx = +document.getElementById('costIndex').value||100;
+  const total1 = rent+groc+trans+dining+util+ent;
+  const factor = idx/100;
+  const total2 = total1 * factor;
+  const savings = total1 - total2;
+  document.getElementById('savingsMain').textContent = (savings >= 0 ? '+' : '') + fmtCurrency(savings) + '/mo';
+  document.getElementById('savingsSub').textContent = `Current: ${fmtCurrency(total1)}/mo → Destination: ${fmtCurrency(total2)}/mo (${idx}% cost index)`;
+  const annualSavings = savings * 12;
+  document.getElementById('resultsGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(total2)}</span><span class="result-item__label">Est. Monthly Cost</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(annualSavings)}</span><span class="result-item__label">Annual Savings</span></div>
+    <div class="result-item"><span class="result-item__val">${idx}%</span><span class="result-item__label">Cost Index</span></div>
+    <div class="result-item"><span class="result-item__val">${fmtCurrency(savings*120)}</span><span class="result-item__label">10-Year Savings</span></div>`;
+  const items = [['Rent', rent], ['Groceries', groc], ['Transport', trans], ['Dining', dining], ['Utilities', util], ['Entertainment', ent]];
+  let rows = '<tr><th>Category</th><th>Current</th><th>Destination</th><th>Savings</th></tr>';
+  items.forEach(([n, v]) => {
+    const d = v * factor, s = v - d;
+    rows += `<tr><td>${n}</td><td>${fmtCurrency(v)}</td><td class="val-highlight">${fmtCurrency(d)}</td><td style="color:var(--green);font-weight:600;">${fmtCurrency(s)}</td></tr>`;
+  });
+  document.getElementById('breakdownTable').innerHTML = rows;
+  showResult('result');
+}
+function resetCOL() { document.getElementById('cityPreset').value=''; document.getElementById('costIndex').value=100; hideResult('result'); }
+</script>
+</body></html>

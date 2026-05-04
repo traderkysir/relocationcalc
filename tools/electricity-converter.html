@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electricity Voltage & Wattage Converter | RelocationCalc</title>
+<meta name="description" content="Check voltage compatibility for your appliances when moving abroad. Convert between 110V and 220V and calculate wattage requirements.">
+<link rel="canonical" href="https://www.relocationcalc.com/tools/electricity-converter.html">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo"><div class="nav__logo-icon">🌍</div>Relocation<span>Calc</span></a><div class="nav__links"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div><button class="nav__mobile-toggle">☰</button></div><div class="nav__mobile-menu"><a href="/#finance">💰 Finance</a><a href="/#health">❤️ Health</a><a href="/#productivity">⏱ Productivity</a><a href="/#converters">📐 Converters</a></div></nav>
+<div class="breadcrumb"><div class="breadcrumb__inner"><a href="/">Home</a><span class="bc-sep">›</span><a href="/#productivity">Productivity</a><span class="bc-sep">›</span><span>Electricity Converter</span></div></div>
+<div class="tool-header"><div class="tool-header__inner">
+<div class="tool-header__badge">⚡ Practical Tool</div>
+<h1>Electricity Voltage Converter</h1>
+<p>Check if your appliances are compatible with your destination country's voltage. Understand what adapters or converters you'll need.</p>
+</div></div>
+<div class="tool-main">
+<div class="ad-slot ad-slot--leaderboard">Advertisement</div>
+<div class="calc-card">
+<div class="calc-card__title">⚡ Voltage Compatibility Checker</div>
+<div class="form-grid">
+<div class="field"><label>Appliance Voltage Rating</label><input type="text" id="appVoltage" placeholder="e.g. 110V, 220V, 100-240V" value="110V"></div>
+<div class="field"><label>Destination Country Voltage</label><select id="destVoltage">
+<option value="230">🇪🇺 Europe / UK / Portugal (230V, 50Hz)</option>
+<option value="110">🇺🇸 USA / Canada (120V, 60Hz)</option>
+<option value="230">🇦🇺 Australia (230V, 50Hz)</option>
+<option value="100">🇯🇵 Japan (100V, 50/60Hz)</option>
+<option value="230">🌍 Most of the World (220-240V)</option>
+</select></div>
+<div class="field"><label>Appliance Wattage (W)</label><input type="number" id="watts" value="1500" min="1"></div>
+<div class="field"><label>Hours Used per Day</label><input type="number" id="hours" value="2" min="0.1" step="0.5"></div>
+</div>
+<div class="calc-actions"><button class="btn btn--primary btn--lg" onclick="checkVoltage()">Check Compatibility</button><button class="btn btn--secondary" onclick="resetElec()">Reset</button></div>
+<div class="result-box" id="result">
+<div class="result-box__title">Compatibility Status</div>
+<div class="result-box__main" id="elecMain">—</div>
+<div class="result-box__sub" id="elecSub"></div>
+<div class="results-grid" id="elecGrid" style="margin-top:16px;"></div>
+</div>
+</div>
+<div class="ad-slot ad-slot--rectangle">Advertisement</div>
+</div>
+<div class="seo-content">
+<h2>Voltage When Moving Abroad</h2>
+<p>The US and Canada use 110-120V at 60Hz. Most of Europe, including Portugal, uses 220-240V at 50Hz. Many modern electronics (phones, laptops) are dual-voltage (100-240V) and only need a plug adapter. High-wattage appliances like hair dryers, electric kettles, and kitchen appliances are usually single-voltage and require a proper voltage converter.</p>
+<ul>
+<li><strong>Check the label</strong>: "INPUT: 100-240V" = works everywhere with just an adapter</li>
+<li><strong>Single voltage appliances</strong>: Need a step-up/step-down converter (heavy, expensive)</li>
+<li><strong>Best solution</strong>: Buy high-wattage appliances locally at destination</li>
+</ul>
+</div>
+<div class="related-tools"><div class="related-tools__inner"><h3>Related Tools</h3><div class="related-list">
+<a href="/tools/phone-code.html" class="related-link"><span>📞</span>Phone Code Lookup</a>
+<a href="/tools/relocation-budget.html" class="related-link"><span>📋</span>Relocation Budget</a>
+</div></div></div>
+<footer class="footer"><div class="footer__inner"><div class="footer__bottom"><span>© 2025 RelocationCalc.com</span><a href="/">← All Tools</a></div></div></footer>
+<script src="/js/common.js"></script>
+<script>
+function checkVoltage() {
+  const appV = document.getElementById('appVoltage').value.toLowerCase();
+  const destV = +document.getElementById('destVoltage').value;
+  const watts = +document.getElementById('watts').value;
+  const hours = +document.getElementById('hours').value;
+  const isDual = appV.includes('100-240') || appV.includes('110-240') || appV.includes('100-250');
+  const is110 = appV.includes('110') || appV.includes('120');
+  const is220 = appV.includes('220') || appV.includes('230') || appV.includes('240');
+  let status, note;
+  if (isDual) { status='✅ Compatible — Adapter Only'; note='This appliance is dual-voltage. You only need a plug adapter, not a voltage converter.'; }
+  else if ((is110 && destV <= 120) || (is220 && destV >= 220)) { status='✅ Compatible'; note='Voltage matches. You may still need a plug adapter depending on the outlet type.'; }
+  else if (is110 && destV >= 220) { status='⚠️ Needs Converter'; note='Your 110V appliance will NOT work on 220V without a step-down voltage converter. For high-wattage items, consider buying locally instead.'; }
+  else { status='❓ Check Label'; note='Please check the voltage label on your appliance (usually on the bottom or back).'; }
+  const kwhPerDay = watts / 1000 * hours;
+  const kwhPerMonth = kwhPerDay * 30;
+  const costPerMonth = kwhPerMonth * 0.20; // ~€0.20/kWh Portugal avg
+  document.getElementById('elecMain').textContent = status;
+  document.getElementById('elecMain').style.color = status.startsWith('✅') ? 'var(--green)' : 'var(--accent)';
+  document.getElementById('elecSub').textContent = note;
+  document.getElementById('elecGrid').innerHTML = `
+    <div class="result-item"><span class="result-item__val">${watts}W</span><span class="result-item__label">Power Draw</span></div>
+    <div class="result-item"><span class="result-item__val">${kwhPerDay.toFixed(2)} kWh</span><span class="result-item__label">Per Day</span></div>
+    <div class="result-item"><span class="result-item__val">${kwhPerMonth.toFixed(1)} kWh</span><span class="result-item__label">Per Month</span></div>
+    <div class="result-item"><span class="result-item__val">€${costPerMonth.toFixed(2)}</span><span class="result-item__label">Est. Monthly Cost</span></div>`;
+  showResult('result');
+}
+function resetElec() { hideResult('result'); }
+</script>
+</body></html>
